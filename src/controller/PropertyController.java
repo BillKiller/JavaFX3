@@ -59,16 +59,30 @@ public class PropertyController {
 
 	public void edit() {
 		button.setOnMouseClicked(e -> {
-//			if (shape != null) {
-//				shape.setX(Double.parseDouble(textFieldX.getText()));
-//				shape.setY(Double.parseDouble(textFieldY.getText()));
-//				shape.setWidth(Double.parseDouble(textFieldW.getText()));
-//				shape.setHeight(Double.parseDouble(textFieldH.getText()));
-//				shape.getText().setText(textArea.getText());
-//				shape.updateLocation(shape.getX(), shape.getY());
-//				shape.update();
-//				drawController.saveChange();
-//			}
+			if (shape != null) {
+				if (shape instanceof MyShape) {
+				MyShape shape=(MyShape)this.shape;
+				shape.setX(Double.parseDouble(textFieldX.getText()));
+				shape.setY(Double.parseDouble(textFieldY.getText()));
+				shape.setWidth(Double.parseDouble(textFieldW.getText()));
+				shape.setHeight(Double.parseDouble(textFieldH.getText()));
+				shape.getText().setText(textArea.getText());
+				shape.updateLocation(shape.getX(), shape.getY());
+				shape.update();
+				drawController.saveChange();
+				}else{
+					MyLine shape=(MyLine)this.shape;
+					shape.setSX(Double.parseDouble(textFieldX.getText()));
+					shape.setSY(Double.parseDouble(textFieldY.getText()));
+					shape.setEX(Double.parseDouble(textFieldW.getText()));
+					shape.setEY(Double.parseDouble(textFieldH.getText()));
+//					shape.getText().setText(textArea.getText());
+//					shape.updateLocation(shape.getX(), shape.getY());
+//					shape.update();
+					shape.setShape();
+					drawController.saveChange();
+				}
+			}
 		});
 
 	}

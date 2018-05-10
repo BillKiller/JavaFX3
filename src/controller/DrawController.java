@@ -109,6 +109,7 @@ public class DrawController {
 				line.setHeadLink(nearShape);
 			}
 		}
+		updateCodeArea();
 	}
 
 	public void setNearPoint(Circle nearPoint) {
