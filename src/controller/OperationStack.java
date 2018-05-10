@@ -1,13 +1,8 @@
 package controller;
 
-import java.io.Serializable;
 import java.util.Stack;
 
-public class OperationStack  implements Serializable{
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+public class OperationStack {
 	private Stack<String> stack= new Stack<String>();
 	public OperationStack() {
 		// TODO Auto-generated constructor stub

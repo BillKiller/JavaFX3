@@ -1,26 +1,17 @@
 package model;
 
 import javafx.css.*;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 public class RoundRectangle extends MyRectangle {
-	private Rectangle rectangle;
+    Rectangle roundrectangle;
     public  RoundRectangle(double x,double y,int id){
-    	this(x,y,100,50,id);
+    	this(x,y,100,50);
     	this.factoryID=id;
     }
-    public RoundRectangle(double x,double y,double width,double height,int id){
-        super(x,y,width,height,id);
-        rectangle = new Rectangle();
-		setMyShape(rectangle);
-		setShape();
-    }
-    public void setShape(){
-    	rectangle.setWidth(2*width);
-    	rectangle.setHeight(2*height);
-    	rectangle.setX(x-width);
-    	rectangle.setY(y-height);
-    	rectangle.setStyle("-fx-arc-height: 50;-fx-arc-width: 50;");
+    public RoundRectangle(double x,double y,double width,double height){
+        super(x,y,width,height);
+        roundrectangle=((Rectangle)getShape());
+        roundrectangle.setStyle("-fx-arc-height: 50;-fx-arc-width: 50;");
     }
 }

@@ -77,8 +77,10 @@ public class Compiler {
 		String []item = code.split(";");
 		return item;
 	}
+	//调用这个方法可以从代码产生图形
 	public void compireProduce(String code){
 		this.code = code.trim();
+
 		shapeFactory.setCountShapeID(0);
 		drawController.reset();
 		String items[]=getItem();

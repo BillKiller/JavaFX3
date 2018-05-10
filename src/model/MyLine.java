@@ -45,12 +45,12 @@ public class MyLine extends Line {
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
 	}
-	// Í¼ï¿½ÎµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// Í¼ÐÎµÄ¹¤³§±àºÅ
 	protected int factoryID;
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ËùÔÚÇøÓò¼°Æä¹ÜÀíÕß
 	protected AnchorPane drawingArea;
 	protected DrawController drawController;
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	// ×ø±êÐÅÏ¢
 	protected double startX;
 	protected double startY;
 	protected double endX;
@@ -61,10 +61,10 @@ public class MyLine extends Line {
 	protected Polygon triangle;
 	protected Line line;
 	protected Circle circle;
-	//ï¿½ï¿½ï¿½Óµï¿½Í¼ï¿½ï¿½
+	//Á¬½ÓµÄÍ¼ÐÎ
 	protected MyShape headLinkShape;
 	protected MyShape tailLinkShape;
-	// ×´Ì¬ï¿½ï¿½ï¿½ï¿½
+	// ×´Ì¬±äÁ¿
 	protected boolean isOnTheLine = false;
 	protected boolean isSelected;
 	protected BooleanProperty booleanProperty;
@@ -160,14 +160,14 @@ public class MyLine extends Line {
 	}
 
 	public void endMove(double x, double y) {
-		// Ä©ï¿½Ëµï¿½ï¿½Æ¶ï¿½ï¿½Ç¸ï¿½ï¿½Ý¾ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+		// Ä©¶ËµÄÒÆ¶¯ÊÇ¸ù¾Ý¾ø¶ÔÎ»ÖÃ
 		endX = x - triangle.getParent().getLayoutX();
 		endY = y - triangle.getParent().getLayoutY();
 		setShape();
 	}
 
-	public void move(double dx, double dy) {
-		// ï¿½Ë´ï¿½ï¿½Æ¶ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	protected void move(double dx, double dy) {
+		// ´Ë´¦ÒÆ¶¯ÊÇ¸ù¾ÝÏà¶ÔÎ»ÒÆ¶ø²»ÊÇ¾ø¶ÔÎ»ÖÃ
 		startX = startX + dx;
 		startY = startY + dy;
 		endX = endX + dx;
@@ -188,7 +188,7 @@ public class MyLine extends Line {
 	public void changeListener() {
 		booleanProperty.addListener(e -> {
 			if (booleanProperty.getValue() == false) {
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å·¢ï¿½ï¿½ï¿½Ä±ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Shapeï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Shapeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// Èç¹ûÎïÌå·¢Éú¸Ä±äËµÃ÷Õâ¸öÎïÌåÊÇµ±Ç°¹¤×÷µÄShape£¬´ËÊ±ÓÒ²àµÄÊôÐÔÀ¸ÏÔÊ¾Õâ¸öShapeµÄÊôÐÔ
 				drawController.getPropertyController().setWorkShape(this);
 				drawController.getPropertyController().update();
 				drawController.saveChange();
@@ -222,9 +222,9 @@ public class MyLine extends Line {
 			drawController.connect(e.getX(),e.getY(),"start",this);
 		});
 		/*
-		 * Ö±ï¿½ßµï¿½ï¿½ï¿½×ªï¿½Í·ï¿½ï¿½ï¿½ï¿½È½Ï¼òµ¥¾ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä©ï¿½ï¿½Îªï¿½ï¿½êµ±Ç°Î»ï¿½Ã¼ï¿½ï¿½ï¿½ Ö±ï¿½ßµï¿½Æ½ï¿½Æ±È½Ï¸ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½
-		 * ï¿½ï¿½Â¼ï¿½ï¿½ê¿ªÊ¼ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½lineï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê²»ï¿½Æ³ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½Æ¶ï¿½Î»ï¿½Ã£ï¿½dx =
-		 * e.getX()-lastX,dy = getY()-lastY; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Î»ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Æ½ï¿½ï¿½
+		 * Ö±ÏßµÄÐý×ªºÍ·ÅËõ±È½Ï¼òµ¥¾ÍÊÇ¸ù¾ÝÈý½ÇÐÎµÄÎ»ÖÃÀ´½øÐÐµ÷Õû£¬Ö±½ÓÉèÖÃÄ©¶ËÎªÊó±êµ±Ç°Î»ÖÃ¼´¿É Ö±ÏßµÄÆ½ÒÆ±È½Ï¸´ÔÓ£¬¾ßÌåÊµÏÖÈçÏÂ£º
+		 * ¼ÇÂ¼Êó±ê¿ªÊ¼µÄÎ»ÖÃ£¬µ±Êó±êÒÆ¶¯µ½lineÀïÃæµÄÊ±ºò¼ÇÂ¼£¬Èç¹ûÊó±ê²»ÒÆ³öÄÇÃ´²»¸Ä±äÉÏÒ»´ÎÎ»ÖÃ µ±Êó±êÒÆ¶¯µÄÊ±ºò²úÉúÐÂµÄÒÆ¶¯Î»ÖÃ£¬dx =
+		 * e.getX()-lastX,dy = getY()-lastY; ¸ù¾ÝÊó±êÒÆ¶¯µÄÎ»ÒÆ¶ÔÁ½¸ö¶Ëµã½øÐÐÏàÓ¦µÄÆ½ÒÆ
 		 */
 		line.setOnMouseEntered(e -> {
 			if (!isOnTheLine) {
@@ -259,7 +259,7 @@ public class MyLine extends Line {
 	@Override
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("#.00");
-		String tostring = getClass().getSimpleName() +"<"+factoryID+">"+ "(" + df.format(this.startX) + "," + df.format(startY) + "," + df.format(endX) + ","
+		String tostring = getClass().getSimpleName() + "(" + df.format(this.startX) + "," + df.format(startY) + "," + df.format(endX) + ","
 				+ df.format(endY) + ")" + "[ " +" " + " ]" + " ;\n";
 		return tostring;
 	}
@@ -269,6 +269,4 @@ public class MyLine extends Line {
 	public void setFactoryID(int factoryID) {
 		this.factoryID = factoryID;
 	}
-
-
 }

@@ -30,21 +30,21 @@ public class MainApp extends Application {
     }
 
     /**
-     * 鍔犺浇RootLayout.fxml
+     * 加载RootLayout.fxml
      */
     public void initRootLayout() {
         try {
-	//灏咰SS鏂囦欢鍔犺浇鍒癴xml鏂囦欢涓�
+	//将CSS文件加载到fxml文件中
 	Application.setUserAgentStylesheet(getClass().getResource("/css/MyCSS.css")
                     .toExternalForm());
-        	//灏哛ootLayout.fxml鍔犺浇鍒皉ootLayout鎴愬憳鍙橀噺涓�
+        	//将RootLayout.fxml加载到rootLayout成员变量中
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/controller/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-            //debug
+            //debug	
 //            MyLine myLine = new MyLine(500, 500,600,700);
 //            myLine.getPane(rootLayout);
-            //鐢╮ootLayout鍒濆鍖栦竴涓猻cene锛屾斁鍒皊tage涓婂睍绀�
+            //用rootLayout初始化一个scene，放到stage上展示
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -55,11 +55,11 @@ public class MainApp extends Application {
 
     public void initAttributeBox(){
     	try {
-        	//灏哛ootLayout.fxml鍔犺浇鍒皉ootLayout鎴愬憳鍙橀噺涓�
+        	//将RootLayout.fxml加载到rootLayout成员变量中
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/controller/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-            //鐢╮ootLayout鍒濆鍖栦竴涓猻cene锛屾斁鍒皊tage涓婂睍绀�
+            //用rootLayout初始化一个scene，放到stage上展示
             Scene scene = new Scene(rootLayout);
             ((ScrollPane)rootLayout.getCenter()).setOnKeyPressed(e->{
          	   System.out.println("as123");

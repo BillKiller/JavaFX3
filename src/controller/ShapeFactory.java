@@ -1,7 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import model.BrokenLine;
 import model.CurvedRectangle;
 import model.Decision;
@@ -18,7 +22,7 @@ public class ShapeFactory {
 	private DrawController drawController;
 
 	/*
-	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½Úµï¿½
+	 * ¹¤³§ÊÇ¶àÈë¿Úµ¥³ö¿ÚµÄ
 	 */
 	public ShapeFactory(AnchorPane drawingArea, DrawController drawController) {
 		this.drawingArea = drawingArea;
@@ -72,8 +76,7 @@ public class ShapeFactory {
 	public void setDrawController(DrawController drawController) {
 		this.drawController = drawController;
 	}
-	// -----------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
+	// -----------ÏÂÃæÖ÷ÒªÓÃÓÚÉú³É
 	public void produce(String kind, double x, double y,double width,double height,String text,int id) {
 		if(kind == null)return;
 		kind = kind.replaceAll("Image", "");
@@ -187,7 +190,7 @@ public class ShapeFactory {
 		default:
 			break;
 		}
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄ²ï¿½Æ·Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµÇ¼Ç½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½
+		// Éú²úÍêÁËµÄ²úÆ·Òª½»¸ø¹ÜÀíÕßµÇ¼Ç½øÈëÁÐ±í·½±ãÒÔºó¹ÜÀí
 		drawController.regriste(shape);
 		return shape;
 	}

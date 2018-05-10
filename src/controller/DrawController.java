@@ -25,10 +25,10 @@ import model.ConnectionInfo;
 import model.MyLine;
 import model.MyShape;
 
-//в╒О©╫О©╫О©╫О©╫О©╫О©╫э╪О©╫р╙О©╫О©╫О©╫О©╫н╙О©╫О©╫О©╫д╧э╪рёО©╫х╩О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫э╪р╣О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п║О©╫э╪рёО©╫О©╫О©╫б╪О©╫О©╫р╙в╢л╛О©╫м╧О©╫О©╫О©╫м╛О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╣
+//в╒рБуБ╦Ж╧э╪рр╙иХжцн╙вН╢С╣д╧э╪рё╛х╩╨СтзуБ╦Ж╧э╪р╣добцФиХжцп║╧э╪рё╛╪гб╪╠ьр╙в╢л╛╨м╧эюМ╡╩м╛гЬсР╣да╙о╣
 /*
- *О©╫э╧э╪р╦О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫А╧╘р╩О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ShapeО©╫О©╫О©╫О©╫м╪О©╫О©╫О©╫О©╫н╗р╩О©╫О©╫О©╫з╠Ю╪╜в╢л╛О©╫О©╫ShapeО©╫О©╫О©╫О©╫О©╫О©╫п╤О©╫О©╫shapeО©╫О©╫О©╫з╠Ю╪╜в╢л╛О©╫О©╫ц╢О©╫О©╫О©╫О©╫О©╫ч╦О©╫О©╫р╡О©╫О©╫О©╫й╣О©╫О©╫ц╩О©╫О©╫О©╫О©╫О©╫О©╫дёО©╫О©╫О©╫О©╫О©╫ж╩О©╫п╣О©╫О©╫О©╫О©╫р╫О©╫О©╫О©╫р╩О©╫О©╫О©╫О©╫й╠О©╫О©╫
- *О©╫э╧э╪р╦О©╫О©╫р╡О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫э╪О©╫О©╫А╧╘р╩О©╫О©╫ShapeО©╫О©╫О©╫О©╫О©╫т╧э╪О©╫О©╫О©╫й╬О©╫О©╫О©╫т╨О©╫О©╫ч╦О©╫О©╫О©╫О©╫О©╫
+ *вэ╧э╪р╦ЬйТптю╦лА╧╘р╩╦Ж╧╓вВ╣дShapeё╗╩╜м╪гЬсРн╗р╩╢╕тз╠Ю╪╜в╢л╛╣дShapeё╛хГ╧Шсп╤Ю╦Жshape╢╕тз╠Ю╪╜в╢л╛дгц╢нрцгпч╦дср╡ЮфДй╣йгц╩спрБрЕ╣дё╛кЫртж╩сп╣╠спгр╫Жспр╩╦Ж╣дй╠╨Рё╛
+ *вэ╧э╪р╦Ьср╡ЮйТптю╦╧э╪рлА╧╘р╩╦ЖShapeхцйТпт╧э╪ротй╬йТпт╨мпч╦дйТпт
  *
  */
 public class DrawController {
@@ -39,13 +39,13 @@ public class DrawController {
 	private Object workShape;
 	private OperationStack operationStack = new OperationStack();
 	private KeyBoardManager keyBoardManager;
-	// п║О©╫э╪О©╫
+	// п║╧э╪р
 	private PropertyController propertyController;
 	private Compiler compiler;
-	// О©╫О©╫О©╫О©╫О©╫о╤О©╫О©╫О©╫О©╫О©╫ О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫с╣О©╫
+	// уЩтзмо╤╞╣доъ ╨м вН╫Э╣да╛╫с╣Ц
 	private MyLine dragLine;
 	private Circle nearPoint;
-	// О©╫О©╫О©╫с╣О©╫О©╫О©╫й╬О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+	// а╛╫с╣Цотй╬╣двН╢С╬ЮюК
 	private double maxDistance = 50;
 	private double isChange;
 
@@ -55,7 +55,16 @@ public class DrawController {
 	public DrawController(AnchorPane drawArea) {
 		drawingArea = drawArea;
 	}
-	// О©╫О©╫О©╫О©╫О©╫ъ╨О©╫м╪О©╫О©╫
+	// а╛╫соъ╨мм╪пн
+	public MyLine getMyLine(int id){
+		MyLine line=null;
+		for(int i =0;i<listLine.size();i++){
+			if(listLine.get(i).getFactoryID() == id){
+				line =listLine.get(i);
+			}
+		}
+		return line;
+	}
 
 	public Compiler getCompiler() {
 		return compiler;
@@ -64,7 +73,9 @@ public class DrawController {
 	public void setCompiler(Compiler compiler) {
 		this.compiler = compiler;
 	}
-
+	public void updateCodeArea(){
+		compiler.getTextArea().setText(getCode());
+	}
 	public void connect(double x1, double y1, String type, MyLine line) {
 		double minDistance = 100000;
 		nearPoint = null;
@@ -98,12 +109,8 @@ public class DrawController {
 				line.setHeadLink(nearShape);
 			}
 		}
-		updateCodeArea();
 	}
 
-	public void updateCodeArea(){
-		compiler.getTextArea().setText(getCode());
-	}
 	public void setNearPoint(Circle nearPoint) {
 		this.nearPoint = nearPoint;
 	}
@@ -177,7 +184,7 @@ public class DrawController {
 	}
 
 	public void delete() {
-		boolean remain = false;// О©╫О©╫О©╫О©╫и╬О©╫О©╫О©╫А╣╪О©╫О©╫listт╙О©╫ь╠Д╤╞О©╫О©╫О©╫О©╫н╙О©╫к╟О©╫х╚О©╫О©╫О©╫с╣О©╫р╩т╙О©╫ь╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+		boolean remain = false;// сисзи╬ЁЩ╩А╣╪жбlistт╙кь╠Д╤╞кЫртн╙ак╟╡х╚ё╛╢с╣зр╩т╙кь╫свеурфП
 		while (true) {
 			remain = false;
 			for (int i = 0; i < list.size(); i++) {
@@ -246,15 +253,7 @@ public class DrawController {
 		workShape = shape;
 		return shape;
 	}
-	public MyLine getMyLine(int id){
-		MyLine line=null;
-		for(int i =0;i<listLine.size();i++){
-			if(listLine.get(i).getFactoryID() == id){
-				line =listLine.get(i);
-			}
-		}
-		return line;
-	}
+
 	public void copyManager() {
 		String code="";
 		for (int i = 0; i < list.size(); i++) {
@@ -317,9 +316,9 @@ public class DrawController {
 
 	public void saveChange() {
 		String code = getCode();
-		operationStack.addOperation(code);;
+		operationStack.addOperation(code);
+		System.out.println("i am hehe");
 		compiler.getTextArea().setText(code);
-		propertyController.update();
 	}
 
 	public String getCode() {
