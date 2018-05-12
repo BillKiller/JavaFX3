@@ -105,6 +105,7 @@ public class DrawController {
 			}
 		}
 		updateCodeArea();
+		saveChange();
 	}
 
 	public void setNearPoint(Circle nearPoint) {
