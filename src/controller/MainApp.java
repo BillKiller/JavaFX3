@@ -10,17 +10,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.CurvedRectangle;
-import model.Decision;
-import model.InputRectangle;
-import model.MyLine;
-
 public class MainApp extends Application {
-
+	
     private Stage primaryStage;
     private BorderPane rootLayout;
     private AnchorPane DrawingArea;
-
 
     @Override
     public void start(Stage primaryStage) {
@@ -34,14 +28,14 @@ public class MainApp extends Application {
      */
     public void initRootLayout() {
         try {
-	//将CSS文件加载到fxml文件中
-	Application.setUserAgentStylesheet(getClass().getResource("/css/MyCSS.css")
-                    .toExternalForm());
+        	//将CSS文件加载到fxml文件中
+//        	Application.setUserAgentStylesheet(getClass().getResource("/css/MyCSS.css")
+//                    .toExternalForm());
         	//将RootLayout.fxml加载到rootLayout成员变量中
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/controller/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-            //debug	
+            //debug	````
 //            MyLine myLine = new MyLine(500, 500,600,700);
 //            myLine.getPane(rootLayout);
             //用rootLayout初始化一个scene，放到stage上展示

@@ -27,9 +27,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import javafx.stage.FileChooser;
 import model.BrokenLine;
 import model.CurvedRectangle;
 import model.Decision;
+import model.DoubleBrokenLine;
 import model.BrokenLine;
 import model.InputRectangle;
 import model.MyCircle;
@@ -97,10 +99,22 @@ public class RootLayoutController implements Initializable {
 	@FXML
 	private Button btn;
 
-
-
 	private Compiler compiler;
-
+	
+	private MenuController menuController;
+	public void menuNew() {
+		menuController.newDrawingArea(drawingArea);
+	}
+	public void menuSave() {
+		menuController.saveDrawingArea("haha");
+	}
+	public void menuOpen() {
+		menuController.getDrawingArea();
+	}
+	public void menuExport() {
+		menuController.exportDrawingArea(drawingArea);
+	}
+	
 	public void changeShapeORLine() {
 		if(isShape) {
 			isShape=false;
@@ -115,6 +129,7 @@ public class RootLayoutController implements Initializable {
 		}
 	}
 
+	
 
 	private DrawController drawController;
 	private PropertyController propertyController;
@@ -123,7 +138,7 @@ public class RootLayoutController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// 初始化改变图形上面的鼠标图案
+
 		RoundRectangle.setCursor(Cursor.HAND);
 		Rectangle.setCursor(Cursor.HAND);
 		Decision.setCursor(Cursor.HAND);
@@ -134,10 +149,11 @@ public class RootLayoutController implements Initializable {
 
 		drawController=new DrawController(drawingArea);
 		shapeFactory=new ShapeFactory(drawingArea,drawController);
-		//左侧栏初始化
+		
 		isShape=true;
 		shapeVBox.setVisible(true);
 		lineVBox.setVisible(false);
+		
 		compiler = new Compiler();
 		compiler.setShapeFactory(shapeFactory);
 		drawController.setCompiler(compiler);
@@ -145,9 +161,12 @@ public class RootLayoutController implements Initializable {
 		btn.setOnMouseClicked(e->{
 				compiler.compireProduce(codeArea.getText());
 		});
-
-		//BrokenLine myLine = new BrokenLine(500, 500, 300, 200);
-		//myLine.getPane(drawingArea,drawController);
+		
+		menuController=new MenuController();
+		
+		
+//		DoubleBrokenLine myLine = new DoubleBrokenLine(500, 500, 300, 200);
+//		myLine.getPane(drawingArea,drawController);
 
 	    propertyController = new PropertyController(textFieldX,textFieldY,textFieldW,textFieldH,textArea);
 	    propertyController.setButton(button2);
@@ -155,10 +174,7 @@ public class RootLayoutController implements Initializable {
 	    propertyController.setDrawController(drawController);
 	    drawController.setPropertyController(propertyController);
 	    drawController.setKeyBoardManager();
-		// 绘图区域鼠标监听
-//	    drawingArea.setOnKeyPressed(e->{
-//	    	System.out.println("hhee");
-//	    });
+	    
 		drawingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -171,19 +187,15 @@ public class RootLayoutController implements Initializable {
 
 					shapeFactory.produce(selectShape, x, y);
 //					drawController.addDrawArea();
-
 					selectShape = null;
 				}
 				if(event.getClickCount() ==1 && selectShape == null){
-
 						drawController.getPropertyController().setWorkShape(drawController.workingShape());
-						//点击一下鼠标，这时候总管家去arraylist里面寻找，寻找到当前处在编辑状态的Shape，并使它位于右侧属性栏管家管理
 						drawController.getPropertyController().update();
 				}
 			}
 		});
 
-		// 图形区域鼠标监听
 		shapeArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

@@ -8,23 +8,27 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 
-public class BrokenLine extends MyLine{
-	private Line xLine;
+public class DoubleBrokenLine extends MyLine{
+	private Line xLine1;
+	private Line xLine2;
 	private Line yLine;
-	public BrokenLine(double startX, double startY, double endX, double endY,int factoryID) {
+//	private double xLen=100;//水平线的初始长度
+	public DoubleBrokenLine(double startX, double startY, double endX, double endY,int factoryID) {
 		this(startX, startY, endX, endY);
 		this.factoryID = factoryID;
 	}
-	public BrokenLine(double startX, double startY, double endX, double endY) {
+	public DoubleBrokenLine(double startX, double startY, double endX, double endY) {
 		this.startX = startX;
 		this.startY = startY;
 		this.endX = endX;
 		this.endY = endY;
 		this.booleanProperty = new SimpleBooleanProperty(false);
 		super.line=new Line();
-		xLine=new Line(startX,startY,endX,startY);
-		yLine=new Line(endX,startY,endX,endY);
-		xLine.setStrokeWidth(3);
+		xLine1=new Line(startX,startY,startX,startY);
+		xLine2=new Line(startX,endY,endX,endY);
+		yLine=new Line(startX,startY,startX,endY);
+		xLine1.setStrokeWidth(3);
+		xLine2.setStrokeWidth(3);
 		yLine.setStrokeWidth(3);
 		circle = new Circle();
 		circle.setCenterX(startX);
@@ -36,16 +40,18 @@ public class BrokenLine extends MyLine{
 		addLineListening();
 	}
 	public void delete(){
-		drawingArea.getChildren().remove(xLine);
+		drawingArea.getChildren().remove(xLine1);
+		drawingArea.getChildren().remove(xLine2);
 		drawingArea.getChildren().remove(yLine);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
 	}
+	
 	@Override
 	public void setShape() {
 
-		double dx = 0;
-		double dy = endY - startY;
+		double dx = endX - startX;
+		double dy = 0;
 		double k = 1 / Math.sqrt(dx * dx + dy * dy);
 		double u = (double) Math.sqrt(3) * StandardNum.TRIANBLE_LEN / (Math.sqrt(dx * dx + dy * dy));
 		double v = (double) StandardNum.TRIANBLE_LEN / Math.sqrt(dx * dx + dy * dy);
@@ -63,20 +69,25 @@ public class BrokenLine extends MyLine{
 		triangle.getPoints().setAll(list);
 		circle.setCenterX(startX);
 		circle.setCenterY(startY);
-		xLine.setStartX(startX);
-		xLine.setStartY(startY);
-		xLine.setEndX(this.endX);
-		xLine.setEndY(startY);
-		yLine.setStartX(this.endX);
+		xLine1.setStartX(startX);
+		xLine1.setStartY(startY);
+		xLine1.setEndX();
+		xLine1.setEndY(startY);
+		xLine2.setStartX(this.endX+xLen);
+		xLine2.setStartY(this.endY);
+		xLine2.setEndX(this.endX);
+		xLine2.setEndY(this.endY);
+		yLine.setStartX(startX+xLen);
 		yLine.setStartY(startY);
-		yLine.setEndX(this.endX);
+		yLine.setEndX(this.endX+xLen);
 		yLine.setEndY(this.endY);
 		isSelected = true;
 		booleanProperty.setValue(true);
 	}
 	@Override
 	public void getPane(AnchorPane drawingArea, DrawController drawController) {
-		drawingArea.getChildren().add(xLine);
+		drawingArea.getChildren().add(xLine1);
+		drawingArea.getChildren().add(xLine2);
 		drawingArea.getChildren().add(yLine);
 		drawingArea.getChildren().add(circle);
 		drawingArea.getChildren().add(triangle);
@@ -85,33 +96,60 @@ public class BrokenLine extends MyLine{
 	}
 	@Override
 	public void setToTop() {
-		drawingArea.getChildren().remove(xLine);
+		drawingArea.getChildren().remove(xLine1);
+		drawingArea.getChildren().remove(xLine2);
 		drawingArea.getChildren().remove(yLine);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
 		getPane(drawingArea, drawController);
 	}
 	public void addLineListening() {
-		xLine.setCursor(Cursor.HAND);
+		xLine1.setCursor(Cursor.HAND);
+		xLine2.setCursor(Cursor.HAND);
 		yLine.setCursor(Cursor.HAND);
-		xLine.setOnMouseEntered(e -> {
+		xLine1.setOnMouseEntered(e -> {
 			if (!isOnTheLine) {
 				lastX = e.getX();
 				lastY = e.getY();
 				isOnTheLine = true;
 			}
 		});
-		xLine.setOnMouseExited(e -> {
+		xLine1.setOnMouseExited(e -> {
 			isOnTheLine = false;
 		});
-		xLine.setOnMouseDragged(e -> {
+		xLine1.setOnMouseDragged(e -> {
 			double dx = e.getX() - lastX;
 			double dy = e.getY() - lastY;
 			lastX = e.getX();
 			lastY = e.getY();
 			move(dx, dy);
 		});
-		xLine.setOnMouseReleased(e->{
+		xLine1.setOnMouseReleased(e->{
+			this.setToTop();
+			booleanProperty.setValue(false);
+			if(headLinkShape!=null)headLinkShape.delConnectionInfo(this);
+			if(tailLinkShape!=null)tailLinkShape.delConnectionInfo(this);
+			booleanProperty.setValue(false);
+		});
+		
+		xLine2.setOnMouseEntered(e -> {
+			if (!isOnTheLine) {
+				lastX = e.getX();
+				lastY = e.getY();
+				isOnTheLine = true;
+			}
+		});
+		xLine2.setOnMouseExited(e -> {
+			isOnTheLine = false;
+		});
+		xLine2.setOnMouseDragged(e -> {
+			double dx = e.getX() - lastX;
+			double dy = e.getY() - lastY;
+			lastX = e.getX();
+			lastY = e.getY();
+			move(dx, dy);
+		});
+		xLine2.setOnMouseReleased(e->{
 			this.setToTop();
 			booleanProperty.setValue(false);
 			if(headLinkShape!=null)headLinkShape.delConnectionInfo(this);
