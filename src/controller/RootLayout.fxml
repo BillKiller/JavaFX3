@@ -16,8 +16,6 @@
         <AnchorPane fx:id="drawingArea" minHeight="0.0" minWidth="0.0" prefHeight="1500.0" prefWidth="1000.0">
           <children>
             <AnchorPane fx:id="keyBoardPane" layoutX="500.0" layoutY="750.0" prefHeight="200.0" prefWidth="200.0" />
-            <TextArea fx:id="codeArea" layoutX="14.0" layoutY="409.0" prefHeight="258.0" prefWidth="734.0" wrapText="true" />
-            <Button id="Button" fx:id="btn" layoutX="645.0" layoutY="672.0" mnemonicParsing="false" text="Button" />
           </children>
           <effect>
             <Blend />
@@ -27,61 +25,71 @@
     </ScrollPane>
   </center>
   <left>
-    <AnchorPane fx:id="shapeArea" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" styleClass="shapeclass" stylesheets="@../css/MyCSS.css" BorderPane.alignment="CENTER">
+    <AnchorPane fx:id="leftArea" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" styleClass="shapeclass" stylesheets="@../css/MyCSS.css" BorderPane.alignment="CENTER">
       <children>
-        <VBox fx:id="shapeVBox" alignment="TOP_CENTER" prefHeight="809.0" prefWidth="201.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-          <children>
-            <ImageView id="RoundRectangleImage" fx:id="RoundRectangle" fitHeight="98.0" fitWidth="153.0">
-              <image>
-                <Image url="@../../image/start.png" />
-              </image>
-            </ImageView>
-            <ImageView id="RectangleImage" fx:id="Rectangle" fitHeight="98.0" fitWidth="147.0">
-              <image>
-                <Image url="@../../image/process.png" />
-              </image>
-            </ImageView>
-            <ImageView id="DecisionImage" fx:id="Decision" fitHeight="98.0" fitWidth="147.0">
-              <image>
-                <Image url="@../../image/decision.png" />
-              </image>
-            </ImageView>
-            <ImageView id="InputRectangleImage" fx:id="InputRectangle" fitHeight="98.0" fitWidth="147.0">
-              <image>
-                <Image url="@../../image/data.png" />
-              </image>
-            </ImageView>
-            <ImageView id="CircularImage" fx:id="Circular" fitHeight="98.0" fitWidth="147.0">
-              <image>
-                <Image url="@../../image/prepare.png" />
-              </image>
-            </ImageView>
-            <ImageView id="CurvedRectangleImage" fx:id="CurvedRectangle" fitHeight="98.0" fitWidth="147.0">
-              <image>
-                <Image url="@../../image/document.png" />
-              </image>
-            </ImageView>
-          </children>
-        </VBox>
-        <VBox fx:id="lineVBox" alignment="TOP_CENTER" prefHeight="824.0" prefWidth="198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="60.0">
-          <children>
-            <ImageView id="MyLine" fx:id="MyLine" fitHeight="134.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@../../image/arrow.png" />
-              </image>
-            </ImageView>
-            <ImageView fx:id="BrokenLine" fitHeight="120.69750391940626" fitWidth="159.86424255371094" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@../../image/BrokenLine.png" />
-              </image>
-            </ImageView>
-          </children>
-        </VBox>
-        <Button fx:id="shapeORLine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeShapeORLine" prefHeight="38.0" prefWidth="201.0" styleClass="shapeorline" stylesheets="@../css/MyCSS.css" text="Shape" textAlignment="CENTER" textOverrun="CLIP">
-          <font>
-            <Font name="System Bold Italic" size="24.0" />
-          </font>
-        </Button>
+            <AnchorPane fx:id="shapeArea" prefHeight="200.0" prefWidth="200.0">
+               <children>
+              <Button fx:id="shapeORLine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeShapeORLine" prefHeight="30.0" prefWidth="200.0" styleClass="shapeorline" stylesheets="@../css/MyCSS.css" text="Shape" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <font>
+                  <Font name="System Bold Italic" size="24.0" />
+                </font>
+              </Button>
+              <VBox fx:id="lineVBox" alignment="TOP_CENTER" prefHeight="824.0" prefWidth="198.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                <children>
+                  <ImageView id="MyLine" fx:id="MyLine" fitHeight="134.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../../image/arrow.png" />
+                    </image>
+                  </ImageView>
+                  <ImageView fx:id="BrokenLine" fitHeight="120.69750391940626" fitWidth="159.86424255371094" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../../image/BrokenLine.png" />
+                    </image>
+                  </ImageView>
+                </children>
+              </VBox>
+              <VBox fx:id="shapeVBox" alignment="TOP_CENTER" prefHeight="809.0" prefWidth="201.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                <children>
+                  <ImageView id="RoundRectangleImage" fx:id="RoundRectangle" fitHeight="98.0" fitWidth="153.0">
+                    <image>
+                      <Image url="@../../image/start.png" />
+                    </image>
+                  </ImageView>
+                  <ImageView id="RectangleImage" fx:id="Rectangle" fitHeight="98.0" fitWidth="147.0">
+                    <image>
+                      <Image url="@../../image/process.png" />
+                    </image>
+                  </ImageView>
+                  <ImageView id="DecisionImage" fx:id="Decision" fitHeight="98.0" fitWidth="147.0">
+                    <image>
+                      <Image url="@../../image/decision.png" />
+                    </image>
+                  </ImageView>
+                  <ImageView id="InputRectangleImage" fx:id="InputRectangle" fitHeight="98.0" fitWidth="147.0">
+                    <image>
+                      <Image url="@../../image/data.png" />
+                    </image>
+                  </ImageView>
+                  <ImageView id="CircularImage" fx:id="Circular" fitHeight="98.0" fitWidth="147.0">
+                    <image>
+                      <Image url="@../../image/prepare.png" />
+                    </image>
+                  </ImageView>
+                  <ImageView id="CurvedRectangleImage" fx:id="CurvedRectangle" fitHeight="98.0" fitWidth="147.0">
+                    <image>
+                      <Image url="@../../image/document.png" />
+                    </image>
+                  </ImageView>
+                </children>
+              </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="codeArea" prefHeight="864.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="codeButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Draw by Code" />
+                  <TextArea fx:id="codeTextArea" prefHeight="862.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+               </children>
+            </AnchorPane>
       </children>
     </AnchorPane>
   </left>
@@ -124,7 +132,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Format">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Code Model" />
+                  <MenuItem fx:id="ModelMenuItem" mnemonicParsing="false" onAction="#changeModel" text="Code Model" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">

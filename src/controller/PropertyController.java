@@ -53,7 +53,6 @@ public class PropertyController {
 			textFieldW.setText("");
 			textFieldX.setText("");
 			textFieldY.setText("");
-			System.out.println("fuck");
 		}
 	}
 

@@ -24,39 +24,39 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
 public abstract class MyShape {
-	// Í¼ÐÎµÄ¹¤³§±àºÅ
+	// Í¼ï¿½ÎµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	protected int factoryID;
-	// ËùÔÚÇøÓò¼°Æä¹ÜÀíÕß
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	protected AnchorPane drawingArea;
 	protected DrawController drawController;
-	// ÖÐÐÄ×ø±ê
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	protected double x;
 	protected double y;
-	// ×óÉÏ½Ç×ø±ê
+	// ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½
 	protected double leftX;
 	protected double leftY;
-	// ÓÒÏÂ½Ç×ø±ê
+	// ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½
 	protected double rightX;
 	protected double rightY;
-	// °ë³¤¿í
+	// ï¿½ë³¤ï¿½ï¿½
 	protected double width;
 	protected double height;
 
-	// ÀûÓÃÒ»¸ö¿É¼àÌýµÄ±äÁ¿¼àÌýÊýÖµµÄ±ä»¯£¬¹¦ÄÜÊÇ¼ÇÂ¼MyShapeµÄÊôÐÔÓÐÃ»ÓÐ·¢Éú¸Ä±ä£¬ÎªÒÔºóµÄ²Ù×÷Õ»Ìá¹©·þÎñ
+	// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ä±ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½Â¼MyShapeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð·ï¿½ï¿½ï¿½ï¿½Ä±ä£¬Îªï¿½Ôºï¿½Ä²ï¿½ï¿½ï¿½Õ»ï¿½á¹©ï¿½ï¿½ï¿½ï¿½
 	protected BooleanProperty booleanProperty;
 	// ×´Ì¬
 	private boolean isDrag = false;
 	private boolean isZoom = false;
 	private boolean isSelected = false;
-	// ÄÚÈÝ
+	// ï¿½ï¿½ï¿½ï¿½
 	protected Shape shape;
 	private Editer editer;
 	private Status status;
 	protected Text text;
 	protected DrawPoints drawPoints;
-	// ¼ÇÂ¼Á¬½ÓÏß
+	// ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ArrayList<ConnectionInfo> connectionInfos=new ArrayList<>();
-	// ·ÅËõRESIZEÊ¹ÓÃÊ¹ÓÃµÄ³£Á¿
+	// ï¿½ï¿½ï¿½ï¿½RESIZEÊ¹ï¿½ï¿½Ê¹ï¿½ÃµÄ³ï¿½ï¿½ï¿½
 	private final static int minReSize = 5;
 	private final static int[][] RESIZ_DRECTION = { { 0, -1, -1 }, { 1, -1, 0 }, { 2, -1, 1 }, { 3, 0, -1 },
 			{ 4, 0, 0 }, { 5, 0, 1 }, { 6, 1, -1 }, { 7, 1, 0 }, { 8, 1, 1 } };
@@ -184,11 +184,11 @@ public abstract class MyShape {
 	public void setText(Text text) {
 		this.text = text;
 	}
-	//Ìí¼ÓÁ¬½ÓÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	public void addConnectionInfo(ConnectionInfo info) {
 		connectionInfos.add(info);
 	}
-	//É¾³ýÁ¬½ÓÐÅÏ¢
+	//É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	public void delConnectionInfo(MyLine line) {
 		ConnectionInfo delInfo=null;
 		for(ConnectionInfo info:connectionInfos) {
@@ -211,7 +211,7 @@ public abstract class MyShape {
 		rightY = y + height;
 	}
 
-	// É¾³ýº¯Êý£¬ÎªÌá¹©detele×ö·þÎñ
+	// É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½á¹©deteleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void delet() {
 		drawingArea.getChildren().remove(shape);
 		editer.delEditer(drawingArea);
@@ -225,7 +225,7 @@ public abstract class MyShape {
 		drawingArea.getChildren().add(shape);
 		drawingArea.getChildren().addAll(drawPoints.getCircles());
 		drawPoints.setAllVisiable(false);
-		// textÊÇÐÂ¼ÓÈëµÄÄÚÈÝ
+
 		drawingArea.getChildren().add(text);
 		this.drawController = drawController;
 		this.drawingArea = drawingArea;
@@ -240,7 +240,7 @@ public abstract class MyShape {
 	}
 
 	/*
-	 * µ±Êó±êÍÏ¶¯µÄÊ±ºò²úÉú4¸öµã
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½
 	 *
 	 */
 	public void createDrawPoints() {
@@ -266,14 +266,14 @@ public abstract class MyShape {
 		resizeCursorListener();
 		resizeListener();
 		moveHandListener();
-		// µ±MyShapeµÄÊôÐÔ·¢Éú¸Ä±äµÄÊ±ºòÏìÓ¦
+		// ï¿½ï¿½MyShapeï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ó¦
 		changeListener();
 	}
 
 	public void changeListener() {
 		booleanProperty.addListener(e -> {
 			if (booleanProperty.getValue() == false) {
-				// Èç¹ûÎïÌå·¢Éú¸Ä±äËµÃ÷Õâ¸öÎïÌåÊÇµ±Ç°¹¤×÷µÄShape£¬´ËÊ±ÓÒ²àµÄÊôÐÔÀ¸ÏÔÊ¾Õâ¸öShapeµÄÊôÐÔ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å·¢ï¿½ï¿½ï¿½Ä±ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Shapeï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Shapeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				drawController.getPropertyController().setWorkShape(this);
 				drawController.getPropertyController().update();
 				drawController.saveChange();
@@ -370,7 +370,7 @@ public abstract class MyShape {
 			circles[i].setDirectionX(RESIZ_DRECTION[i][1]);
 			circles[i].setDirectionY(RESIZ_DRECTION[i][2]);
 
-			// ÉèÖÃÊó±êÐÎ×´
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´
 			circles[i].setCursor(hand[i]);
 		}
 	}
@@ -382,7 +382,7 @@ public abstract class MyShape {
 	// Resize listener
 	protected void resizeShape(int posId, double dx, double dy) {
 		if (width + dx >= 0 && height + dy >= 0) {
-			// ¼ÆËã¾ØÐÎµÄ±ä»»
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎµÄ±ä»»
 			this.width = width + dx;
 			this.height = height + dy;
 			if (posId <= 1) {
@@ -407,16 +407,16 @@ public abstract class MyShape {
 					}
 				}
 			}
-			// Éú³É±ä»»Ð§¹û
+			// ï¿½ï¿½ï¿½É±ä»»Ð§ï¿½ï¿½
 			updateLocation(this.x, this.y);
 			getEditer().setHeight(height + 10);
 			getEditer().setWidth(width + 10);
-			// ¾ØÐÎ±ä»»Ð§¹û
+			// ï¿½ï¿½ï¿½Î±ä»»Ð§ï¿½ï¿½
 			this.setX(x);
 			this.setY(y);
 			this.setWidth(width);
 			this.setHeight(height);
-			// Éú³É±à¼­¿òµÄ±ä»»Ð§¹û
+			// ï¿½ï¿½ï¿½É±à¼­ï¿½ï¿½Ä±ä»»Ð§ï¿½ï¿½
 			booleanProperty.setValue(true);
 		}
 	}
@@ -445,7 +445,7 @@ public abstract class MyShape {
 					editer.show(this.x, this.y);
 				}
 			});
-			// ÎïÌåÔÚ·ÅËõµÄÊ±ºò¼ÇÂ¼Ò»¸ö×´Ì¬´ú±í¸Ä±ä
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Â¼Ò»ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Ä±ï¿½
 			circles[i].setOnMouseReleased(e -> {
 				this.booleanProperty.setValue(false);
 				;
@@ -453,7 +453,7 @@ public abstract class MyShape {
 		}
 	}
 
-	// Ã¿´ÎÒÆ¶¯»áµ¼ÖÂÖÐÐÄ×ø±êx,y¸Ä±ä£¬ÎªÁË·ÀÖ¹textÓëÍ¼ÐÎ·¢ÉúÆ«ÒÆÎÒÃÇÐèÒª¸üÐÂtextµÄÎ»ÖÃ
+	// Ã¿ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½áµ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½x,yï¿½Ä±ä£¬Îªï¿½Ë·ï¿½Ö¹textï¿½ï¿½Í¼ï¿½Î·ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½textï¿½ï¿½Î»ï¿½ï¿½
 	public void update() {
 		int len = text.getText().length() * 5;
 		text.setX(x - len);

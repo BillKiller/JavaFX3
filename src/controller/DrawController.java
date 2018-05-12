@@ -25,12 +25,7 @@ import model.ConnectionInfo;
 import model.MyLine;
 import model.MyShape;
 
-//注意这个管家要设置为最大的管家，然后在这个管家的下面设置小管家，记录必要状态和管理不同区域的联系
-/*
- *总管家给属性栏提供一个工作的Shape（画图区域唯一处在编辑状态的Shape，如果有多个shape处在编辑状态那么我们修改右侧其实是没有意义的，所以只有当有且仅有一个的时候，
- *总管家给右侧属性栏管家提供一个Shape让属性管家显示属性和修改属性
- *
- */
+
 public class DrawController {
 
 	private AnchorPane drawingArea = null;
@@ -39,23 +34,23 @@ public class DrawController {
 	private Object workShape;
 	private OperationStack operationStack = new OperationStack();
 	private KeyBoardManager keyBoardManager;
-	// 小管家
+
 	private PropertyController propertyController;
 	private Compiler compiler;
-	// 正在拖动的线 和 最近的连接点
+
 	private MyLine dragLine;
 	private Circle nearPoint;
-	// 连接点显示的最大距离
+	
 	private double maxDistance = 50;
 	private double isChange;
 
-	//
+
 	private boolean isReStroing = false;
 	private String copyClipBoard = null;
 	public DrawController(AnchorPane drawArea) {
 		drawingArea = drawArea;
 	}
-	// 连接线和图形
+	// 锟斤拷锟斤拷锟竭猴拷图锟斤拷
 	public MyLine getMyLine(int id){
 		MyLine line=null;
 		for(int i =0;i<listLine.size();i++){
@@ -185,7 +180,7 @@ public class DrawController {
 	}
 
 	public void delete() {
-		boolean remain = false;// 由于删除会导致list元素变动所以为了安全，从第一元素接着找起
+		boolean remain = false;// 锟斤拷锟斤拷删锟斤拷锟结导锟斤拷list元锟截变动锟斤拷锟斤拷为锟剿帮拷全锟斤拷锟接碉拷一元锟截斤拷锟斤拷锟斤拷锟斤拷
 		while (true) {
 			remain = false;
 			for (int i = 0; i < list.size(); i++) {
@@ -278,7 +273,6 @@ public class DrawController {
 		compiler.compireProduce(code);
 		isReStroing = false;
 		saveChange();
-
 	}
 	public String getCopyClipBoard() {
 		return copyClipBoard;

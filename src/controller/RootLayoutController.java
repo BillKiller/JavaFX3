@@ -1,7 +1,7 @@
 package controller;
 
-import java.awt.Image;
 import java.net.URL;
+import java.util.IllegalFormatCodePointException;
 import java.util.ResourceBundle;
 
 import com.sun.javafx.perf.PerformanceTracker.SceneAccessor;
@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -46,7 +47,15 @@ public class RootLayoutController implements Initializable {
 	@FXML
 	private AnchorPane drawingArea;
 	@FXML
+	private AnchorPane leftArea;
+	@FXML
 	private AnchorPane shapeArea;
+	@FXML
+	private AnchorPane codeArea;
+	@FXML
+	private TextArea codeTextArea;
+	@FXML
+	private MenuItem ModelMenuItem;
 
 	@FXML
 	private TextField textfield;
@@ -93,11 +102,9 @@ public class RootLayoutController implements Initializable {
 	private VBox lineVBox;
 	private boolean isShape;
 
-	@FXML
-	private TextArea codeArea;
 
 	@FXML
-	private Button btn;
+	private Button codeButton;
 
 	private Compiler compiler;
 	
@@ -106,13 +113,32 @@ public class RootLayoutController implements Initializable {
 		menuController.newDrawingArea(drawingArea);
 	}
 	public void menuSave() {
-		menuController.saveDrawingArea("haha");
+		menuController.saveDrawingArea(drawController);
 	}
 	public void menuOpen() {
-		menuController.getDrawingArea();
+		menuController.getDrawingArea(compiler);
 	}
 	public void menuExport() {
 		menuController.exportDrawingArea(drawingArea);
+	}
+	
+	boolean isCodeModel=false;
+	public void changeModel() {
+		if(isCodeModel==true) {
+			isCodeModel=false;
+			ModelMenuItem.setText("Change To Code Model");
+			shapeArea.setVisible(true);
+			codeArea.setVisible(false);
+			leftArea.setPrefWidth(200);
+			codeButton.setPrefWidth(200);
+		}else {
+			isCodeModel=true;
+			ModelMenuItem.setText("Change To Draw Model");
+			shapeArea.setVisible(false);
+			codeArea.setVisible(true);
+			leftArea.setPrefWidth(400);
+			codeButton.setPrefWidth(400);
+		}
 	}
 	
 	public void changeShapeORLine() {
@@ -129,7 +155,6 @@ public class RootLayoutController implements Initializable {
 		}
 	}
 
-	
 
 	private DrawController drawController;
 	private PropertyController propertyController;
@@ -150,6 +175,9 @@ public class RootLayoutController implements Initializable {
 		drawController=new DrawController(drawingArea);
 		shapeFactory=new ShapeFactory(drawingArea,drawController);
 		
+		shapeArea.setVisible(true);
+		codeArea.setVisible(false);
+		ModelMenuItem.setText("Change To Code Model");
 		isShape=true;
 		shapeVBox.setVisible(true);
 		lineVBox.setVisible(false);
@@ -157,9 +185,9 @@ public class RootLayoutController implements Initializable {
 		compiler = new Compiler();
 		compiler.setShapeFactory(shapeFactory);
 		drawController.setCompiler(compiler);
-		compiler.setTextArea(codeArea);
-		btn.setOnMouseClicked(e->{
-				compiler.compireProduce(codeArea.getText());
+		compiler.setTextArea(codeTextArea);
+		codeButton.setOnMouseClicked(e->{
+				compiler.compireProduce(codeTextArea.getText());
 		});
 		
 		menuController=new MenuController();
