@@ -94,6 +94,7 @@ public class Compiler {
 			int id = getID(items[i]);
 			String css =getCss(items[i]);
 			String kind = getShapeType(items[i]);
+		    if(kind == null) return;
 			if(kind.indexOf("Line")==-1){
 				cssList.add(css);
 			}

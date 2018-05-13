@@ -9,6 +9,8 @@ import com.sun.javafx.tk.TKDragGestureListener;
 
 import controller.DrawController;
 import controller.ShapeFactory;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -17,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -32,7 +35,6 @@ import javafx.stage.FileChooser;
 import model.BrokenLine;
 import model.CurvedRectangle;
 import model.Decision;
-import model.DoubleBrokenLine;
 import model.BrokenLine;
 import model.InputRectangle;
 import model.MyCircle;
@@ -40,6 +42,7 @@ import model.MyLine;
 import model.MyRectangle;
 import model.MyShape;
 import model.RoundRectangle;
+import model.SwitchButton;
 
 public class RootLayoutController implements Initializable {
 	@FXML
@@ -98,8 +101,15 @@ public class RootLayoutController implements Initializable {
 	private Button shapeORLine;
 	@FXML
 	private VBox shapeVBox;
+
 	@FXML
 	private VBox lineVBox;
+
+	@FXML
+	private ImageView workingImageView;
+
+	@FXML
+	private VBox swiButtonVBox;
 	private boolean isShape;
 
 
@@ -107,7 +117,9 @@ public class RootLayoutController implements Initializable {
 	private Button codeButton;
 
 	private Compiler compiler;
-	
+
+	private SwitchButton switchButton;
+
 	private MenuController menuController;
 	public void menuNew() {
 		menuController.newDrawingArea(drawingArea);
@@ -121,12 +133,13 @@ public class RootLayoutController implements Initializable {
 	public void menuExport() {
 		menuController.exportDrawingArea(drawingArea);
 	}
-	
+
 	boolean isCodeModel=false;
 	public void changeModel() {
 		if(isCodeModel==true) {
 			isCodeModel=false;
 			ModelMenuItem.setText("Change To Code Model");
+			switchButton.setGraph();
 			shapeArea.setVisible(true);
 			codeArea.setVisible(false);
 			leftArea.setPrefWidth(200);
@@ -134,17 +147,19 @@ public class RootLayoutController implements Initializable {
 		}else {
 			isCodeModel=true;
 			ModelMenuItem.setText("Change To Draw Model");
+			switchButton.setCode();
 			shapeArea.setVisible(false);
 			codeArea.setVisible(true);
 			leftArea.setPrefWidth(400);
 			codeButton.setPrefWidth(400);
 		}
 	}
-	
+
 	public void changeShapeORLine() {
 		if(isShape) {
 			isShape=false;
 			shapeORLine.setText("Line");
+
 			shapeVBox.setVisible(false);
 			lineVBox.setVisible(true);
 		}else {
@@ -174,14 +189,19 @@ public class RootLayoutController implements Initializable {
 
 		drawController=new DrawController(drawingArea);
 		shapeFactory=new ShapeFactory(drawingArea,drawController);
-		
+
 		shapeArea.setVisible(true);
 		codeArea.setVisible(false);
 		ModelMenuItem.setText("Change To Code Model");
 		isShape=true;
 		shapeVBox.setVisible(true);
 		lineVBox.setVisible(false);
-		
+		//加入转换button
+
+		switchButton = new SwitchButton(this);
+
+		swiButtonVBox.getChildren().add(switchButton);
+
 		compiler = new Compiler();
 		compiler.setShapeFactory(shapeFactory);
 		drawController.setCompiler(compiler);
@@ -189,20 +209,21 @@ public class RootLayoutController implements Initializable {
 		codeButton.setOnMouseClicked(e->{
 				compiler.compireProduce(codeTextArea.getText());
 		});
-		
+
 		menuController=new MenuController();
-		
-		
+
+
 //		DoubleBrokenLine myLine = new DoubleBrokenLine(500, 500, 300, 200);
 //		myLine.getPane(drawingArea,drawController);
 
 	    propertyController = new PropertyController(textFieldX,textFieldY,textFieldW,textFieldH,textArea);
 	    propertyController.setButton(button2);
+	    propertyController.setWorkingImaging(workingImageView);
 	    propertyController.edit();
 	    propertyController.setDrawController(drawController);
 	    drawController.setPropertyController(propertyController);
 	    drawController.setKeyBoardManager();
-	    
+
 		drawingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

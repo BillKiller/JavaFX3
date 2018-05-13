@@ -467,6 +467,13 @@ public abstract class MyShape {
 				+ df.format(this.height) + ")" + "[ " + text.getText() + " ]" +"{"+getCSS()+"}"+ "  ;\n";
 		return tostring;
 	}
+
+	public String toString(int factoryID) {
+		DecimalFormat df = new DecimalFormat("#.000");
+		String tostring = getClass().getSimpleName() +"< "+factoryID+" >"+ "(" + df.format(this.x) + "," + df.format(this.y) + "," + df.format(this.width) + ","
+				+ df.format(this.height) + ")" + "[ " + text.getText() + " ]" +"{ "+" }"+ "  ;\n";
+		return tostring;
+	}
 	public String getCSS(){
 		String css="";
 		for(int i =0;i<connectionInfos.size();i++){

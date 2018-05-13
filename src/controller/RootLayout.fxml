@@ -9,9 +9,16 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="rootLayout" prefHeight="900.0" prefWidth="1200.0" styleClass="background" stylesheets="@../css/MyCSS.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootLayoutController">
+<BorderPane fx:id="rootLayout" prefHeight="900.0" prefWidth="1200.0" styleClass="background" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RootLayoutController">
+  <bottom>
+    <AnchorPane prefHeight="29.0" prefWidth="1200.0000999999975">
+      <children>
+        <VBox id="swiButtonVBOox" fx:id="swiButtonVBox" layoutX="0.0" layoutY="15.0" prefHeight="29.0" prefWidth="108.0" />
+      </children>
+    </AnchorPane>
+  </bottom>
   <center>
-    <ScrollPane prefHeight="868.0" prefWidth="786.0" styleClass="drawingarea" stylesheets="@../css/MyCSS.css" BorderPane.alignment="CENTER">
+    <ScrollPane prefHeight="868.0" prefWidth="786.0" styleClass="drawingarea" BorderPane.alignment="CENTER">
       <content>
         <AnchorPane fx:id="drawingArea" minHeight="0.0" minWidth="0.0" prefHeight="1500.0" prefWidth="1000.0">
           <children>
@@ -25,88 +32,88 @@
     </ScrollPane>
   </center>
   <left>
-    <AnchorPane fx:id="leftArea" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" styleClass="shapeclass" stylesheets="@../css/MyCSS.css" BorderPane.alignment="CENTER">
+    <AnchorPane fx:id="leftArea" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" styleClass="shapeclass" BorderPane.alignment="CENTER">
       <children>
-            <AnchorPane fx:id="shapeArea" prefHeight="200.0" prefWidth="200.0">
-               <children>
-              <Button fx:id="shapeORLine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeShapeORLine" prefHeight="30.0" prefWidth="200.0" styleClass="shapeorline" stylesheets="@../css/MyCSS.css" text="Shape" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <font>
-                  <Font name="System Bold Italic" size="24.0" />
-                </font>
-              </Button>
-              <VBox fx:id="lineVBox" alignment="TOP_CENTER" prefHeight="824.0" prefWidth="198.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-                <children>
-                  <ImageView id="MyLine" fx:id="MyLine" fitHeight="134.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                      <Image url="@../../image/arrow.png" />
-                    </image>
-                  </ImageView>
-                  <ImageView fx:id="BrokenLine" fitHeight="120.69750391940626" fitWidth="159.86424255371094" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                      <Image url="@../../image/BrokenLine.png" />
-                    </image>
-                  </ImageView>
-                </children>
-              </VBox>
-              <VBox fx:id="shapeVBox" alignment="TOP_CENTER" prefHeight="809.0" prefWidth="201.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-                <children>
-                  <ImageView id="RoundRectangleImage" fx:id="RoundRectangle" fitHeight="98.0" fitWidth="153.0">
-                    <image>
-                      <Image url="@../../image/start.png" />
-                    </image>
-                  </ImageView>
-                  <ImageView id="RectangleImage" fx:id="Rectangle" fitHeight="98.0" fitWidth="147.0">
-                    <image>
-                      <Image url="@../../image/process.png" />
-                    </image>
-                  </ImageView>
-                  <ImageView id="DecisionImage" fx:id="Decision" fitHeight="98.0" fitWidth="147.0">
-                    <image>
-                      <Image url="@../../image/decision.png" />
-                    </image>
-                  </ImageView>
-                  <ImageView id="InputRectangleImage" fx:id="InputRectangle" fitHeight="98.0" fitWidth="147.0">
-                    <image>
-                      <Image url="@../../image/data.png" />
-                    </image>
-                  </ImageView>
-                  <ImageView id="CircularImage" fx:id="Circular" fitHeight="98.0" fitWidth="147.0">
-                    <image>
-                      <Image url="@../../image/prepare.png" />
-                    </image>
-                  </ImageView>
-                  <ImageView id="CurvedRectangleImage" fx:id="CurvedRectangle" fitHeight="98.0" fitWidth="147.0">
-                    <image>
-                      <Image url="@../../image/document.png" />
-                    </image>
-                  </ImageView>
-                </children>
-              </VBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="codeArea" prefHeight="864.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Button fx:id="codeButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Draw by Code" />
-                  <TextArea fx:id="codeTextArea" prefHeight="862.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
-               </children>
-            </AnchorPane>
+        <AnchorPane fx:id="shapeArea" prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <Button fx:id="shapeORLine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeShapeORLine" prefHeight="30.0" prefWidth="200.0" styleClass="shapeorline" text="Shape" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <font>
+                <Font name="System Bold Italic" size="24.0" />
+              </font>
+            </Button>
+            <VBox fx:id="lineVBox" alignment="TOP_CENTER" prefHeight="824.0" prefWidth="198.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+              <children>
+                <ImageView fx:id="MyLine" fitHeight="134.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../../image/arrow.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="BrokenLine" fitHeight="120.69750391940626" fitWidth="159.86424255371094" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../../image/BrokenLine.png" />
+                  </image>
+                </ImageView>
+              </children>
+            </VBox>
+            <VBox fx:id="shapeVBox" alignment="TOP_CENTER" prefHeight="809.0" prefWidth="201.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+              <children>
+                <ImageView id="RoundRectangleImage" fx:id="RoundRectangle" fitHeight="98.0" fitWidth="153.0">
+                  <image>
+                    <Image url="@../../image/start.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="RectangleImage" fx:id="Rectangle" fitHeight="98.0" fitWidth="147.0">
+                  <image>
+                    <Image url="@../../image/process.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="DecisionImage" fx:id="Decision" fitHeight="98.0" fitWidth="147.0">
+                  <image>
+                    <Image url="@../../image/decision.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="InputRectangleImage" fx:id="InputRectangle" fitHeight="98.0" fitWidth="147.0">
+                  <image>
+                    <Image url="@../../image/data.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="CircularImage" fx:id="Circular" fitHeight="98.0" fitWidth="147.0">
+                  <image>
+                    <Image url="@../../image/prepare.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="CurvedRectangleImage" fx:id="CurvedRectangle" fitHeight="98.0" fitWidth="147.0">
+                  <image>
+                    <Image url="@../../image/document.png" />
+                  </image>
+                </ImageView>
+              </children>
+            </VBox>
+          </children>
+        </AnchorPane>
+        <AnchorPane fx:id="codeArea" prefHeight="864.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <Button fx:id="codeButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Draw by Code" />
+            <TextArea fx:id="codeTextArea" prefHeight="862.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+          </children>
+        </AnchorPane>
       </children>
     </AnchorPane>
   </left>
   <right>
-    <AnchorPane prefHeight="868.0" prefWidth="237.0" styleClass="attribute" stylesheets="@../css/MyCSS.css" BorderPane.alignment="CENTER">
+    <AnchorPane prefHeight="868.0" prefWidth="237.0" styleClass="attribute" BorderPane.alignment="CENTER">
       <children>
-      <ImageView fitHeight="123.0" fitWidth="174.0" layoutX="32.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-          <Image url="@../../image/prepare.png" />
-        </image>
-      </ImageView>
+        <ImageView id="" fx:id="workingImageView" fitHeight="123.0" fitWidth="174.0" layoutX="32.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../../image/prepare.png" />
+          </image>
+        </ImageView>
         <Label layoutX="29.0" layoutY="355.0" text="Text :" />
         <TextArea fx:id="textArea" layoutX="25.0" layoutY="388.0" prefHeight="140.0" prefWidth="188.0" promptText="Describe your graphics" />
         <Label layoutX="30.0" layoutY="317.0" prefHeight="20.0" prefWidth="48.0" text="Type  :" />
         <ChoiceBox layoutX="92.0" layoutY="314.0" prefHeight="23.0" prefWidth="128.0" />
         <Label layoutX="30.0" layoutY="281.0" prefHeight="0.0" prefWidth="47.0" text="Color :" />
-            <ColorPicker layoutX="91.0" layoutY="277.0" prefHeight="23.0" prefWidth="130.0" />
+        <ColorPicker layoutX="91.0" layoutY="277.0" prefHeight="23.0" prefWidth="130.0" />
         <Label layoutX="24.0" layoutY="240.0" prefHeight="20.0" prefWidth="44.0" text="W :" />
         <TextField fx:id="textFieldH" layoutX="159.0" layoutY="237.0" prefHeight="23.0" prefWidth="61.0" />
         <Label layoutX="25.0" layoutY="210.0" prefHeight="20.0" prefWidth="26.0" text="X : " />
@@ -119,28 +126,28 @@
       </children>
     </AnchorPane>
   </right>
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#menuNew" text="New" />
-                  <MenuItem mnemonicParsing="false" onAction="#menuSave" text="Save" />
-                  <MenuItem mnemonicParsing="false" onAction="#menuOpen" text="Open" />
-                  <MenuItem mnemonicParsing="false" onAction="#menuExport" text="export" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Format">
-               <items>
-                  <MenuItem fx:id="ModelMenuItem" mnemonicParsing="false" onAction="#changeModel" text="Code Model" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-   </top>
+  <top>
+    <MenuBar BorderPane.alignment="CENTER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#menuNew" text="New" />
+            <MenuItem mnemonicParsing="false" onAction="#menuSave" text="Save" />
+            <MenuItem mnemonicParsing="false" onAction="#menuOpen" text="Open" />
+            <MenuItem mnemonicParsing="false" onAction="#menuExport" text="export" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Format">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#changeModel" text="Code Model" fx:id="ModelMenuItem" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
 </BorderPane>

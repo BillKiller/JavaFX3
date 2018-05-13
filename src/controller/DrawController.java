@@ -40,7 +40,7 @@ public class DrawController {
 
 	private MyLine dragLine;
 	private Circle nearPoint;
-	
+
 	private double maxDistance = 50;
 	private double isChange;
 
@@ -105,6 +105,7 @@ public class DrawController {
 			}
 		}
 		updateCodeArea();
+		saveChange();
 	}
 
 	public void setNearPoint(Circle nearPoint) {
@@ -252,14 +253,18 @@ public class DrawController {
 
 	public void copyManager() {
 		String code="";
+		int num = compiler.getShapeFactory().getCountShapeID();
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).isSelected()) {
-					code = code + list.get(i).toString();
+					num++;
+					code = code + list.get(i).toString(num);
+					
 			}
 		}
 		for (int i = 0; i < listLine.size(); i++) {
 			if (listLine.get(i).isSelected()) {
-				code = code + listLine.get(i).toString();
+				num++;
+				code = code + listLine.get(i).toString(num);
 			}
 		}
 		copyClipBoard = code;
