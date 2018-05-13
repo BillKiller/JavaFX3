@@ -32,7 +32,6 @@ import javafx.stage.FileChooser;
 import model.BrokenLine;
 import model.CurvedRectangle;
 import model.Decision;
-import model.DoubleBrokenLine;
 import model.BrokenLine;
 import model.InputRectangle;
 import model.MyCircle;
