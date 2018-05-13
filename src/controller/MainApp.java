@@ -29,8 +29,8 @@ public class MainApp extends Application {
     public void initRootLayout() {
         try {
         	//将CSS文件加载到fxml文件中
-        	Application.setUserAgentStylesheet(getClass().getResource("/css/MyCSS.css")
-                    .toExternalForm());
+//        	Application.setUserAgentStylesheet(getClass().getResource("/css/MyCSS.css")
+//                    .toExternalForm());
         	//将RootLayout.fxml加载到rootLayout成员变量中
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/controller/RootLayout.fxml"));

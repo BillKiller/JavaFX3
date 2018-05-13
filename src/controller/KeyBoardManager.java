@@ -1,8 +1,9 @@
 package controller;
 
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import model.MyLine;
+import model.MyShape;
 
 public class KeyBoardManager {
 	private boolean isCtrl;
@@ -45,7 +46,33 @@ public class KeyBoardManager {
 			if(isCtrl&&e.getCode() == KeyCode.V){
 				drawController.copy();
 			}
+			if(e.getCode() == KeyCode.UP){
+				keyMove(0,-5);
+			}
+			if(e.getCode() == KeyCode.DOWN){
+				keyMove(0,5);
+			}
+			if(e.getCode() == KeyCode.LEFT){
+				keyMove(-5,0);
+			}
+			if(e.getCode() == KeyCode.RIGHT){
+				keyMove(5,0);
+			}
+			e.consume();
 		});
+	}
+	public void keyMove(double dx,double dy){
+		Object shape = drawController.workingShape();
+		if(shape instanceof MyShape){
+			double x = ((MyShape) shape).getX();
+			double y = ((MyShape) shape).getY();
+			System.out.println("x"+x+"y"+y);
+			((MyShape) shape).Move(x+dx, y+dy);
+			((MyShape) shape).updateLocation(dx+x, y+dy);
+		}
+		if(shape instanceof MyLine){
+			((MyLine) shape).move(dx, dy);
+		}
 	}
 	public boolean isCtrl() {
 		return isCtrl;

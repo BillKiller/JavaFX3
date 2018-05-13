@@ -22,7 +22,6 @@
 .context-menu {
     -fx-background-image: url(../../image/menuclick.jpg);
     -fx-border-style:solid ;
-    -fx-padding:5 10 5 5;
 }
 .menultem:hover{
 	-fx-background-image:url(../../image/menuhover.jpg);
@@ -75,4 +74,11 @@
 .text-area{
     -fx-border-style:solid ;
     -fx-border-color:grey ;
+}
+
+/*底部按钮 */
+.formbutton{
+	-fx-background-color:derive(grey, 60%) ;
+	-fx-border-radius:5;
+	-fx-font-size: 25px;
 }

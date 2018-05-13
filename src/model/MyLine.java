@@ -166,7 +166,7 @@ public class MyLine extends Line {
 		setShape();
 	}
 
-	protected void move(double dx, double dy) {
+	public void move(double dx, double dy) {
 		// �˴��ƶ��Ǹ������λ�ƶ����Ǿ���λ��
 		startX = startX + dx;
 		startY = startY + dy;
@@ -265,7 +265,7 @@ public class MyLine extends Line {
 	}
 	public String toString(int factoryID) {
 		DecimalFormat df = new DecimalFormat("#.00");
-		String tostring = getClass().getSimpleName() +"<"+factoryID+">"+ "(" + df.format(this.startX) + "," + df.format(startY) + "," + df.format(endX) + ","
+		String tostring = getClass().getSimpleName()+"< "+factoryID+" >" + "(" + df.format(this.startX) + "," + df.format(startY) + "," + df.format(endX) + ","
 				+ df.format(endY) + ")" + "[ " +" " + " ]" + " ;\n";
 		return tostring;
 	}

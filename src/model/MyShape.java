@@ -416,6 +416,7 @@ public abstract class MyShape {
 			this.setY(y);
 			this.setWidth(width);
 			this.setHeight(height);
+			updateLocation(this.x, this.y);
 			// ���ɱ༭��ı任Ч��
 			booleanProperty.setValue(true);
 		}

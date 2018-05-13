@@ -7,10 +7,6 @@ import java.util.regex.Pattern;
 import javafx.scene.control.TextArea;
 
 public class Compiler {
-	/**
-	 * 这个类用于将字符串通过相应的规则变换为图形，是一个编译器类
-	 * @author Zhanbiao_Zhu
-	 */
 	private ShapeFactory shapeFactory;
 	private DrawController drawController;
 	private String code;
@@ -18,18 +14,9 @@ public class Compiler {
 	public TextArea getTextArea() {
 		return textArea;
 	}
-
 	public void setTextArea(TextArea textArea) {
 		this.textArea = textArea;
 	}
-
-	/**
-	 * 获得圆角矩形里面的文字
-	 * 使用了正则表达式进行匹配
-	 * @author Zhanbiao_Zhu
-	 * @param shape
-	 * @return
-	 */
 	public Double[] getRound(String shape){
 		Double []list=new Double[4];
 		for(int i =0;i<list.length;i++)list[i] = new Double("0");
@@ -44,12 +31,6 @@ public class Compiler {
 		}
 		return list;
 	}
-	/**
-	 * 获得尖括号里面的内容，也就是id号
-	 * @author Zhanbiao_Zhu
-	 * @param shape
-	 * @return
-	 */
 	public int  getID(String shape){
 		int id=0;
 		Pattern pattern = Pattern.compile("(?<=\\<)[^\\>]+");
@@ -61,12 +42,6 @@ public class Compiler {
 		}
 		return id;
 	}
-	/**
-	 * 获得大括号内的的css信息
-	 * @author Zhanbiao_Zhu
-	 * @param shape
-	 * @return
-	 */
 	public String getCss(String shape){
 		String temp=null;
 		Pattern pattern = Pattern.compile("(?<=\\{)[^\\}]+");
@@ -76,11 +51,6 @@ public class Compiler {
 		}
 		return temp;
 	}
-	/**
-	 *
-	 * @param shape
-	 * @return
-	 */
 	public String getText(String shape){
 		Pattern pattern = Pattern.compile("(?<=\\[)[^\\]]+");
 		Matcher matcher = pattern.matcher(shape);
@@ -125,7 +95,6 @@ public class Compiler {
 			String css =getCss(items[i]);
 			String kind = getShapeType(items[i]);
 		    if(kind == null) return;
-			if(kind == null)return;
 			if(kind.indexOf("Line")==-1){
 				cssList.add(css);
 			}
