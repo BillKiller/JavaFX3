@@ -9,10 +9,11 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="rootLayout" prefHeight="900.0" prefWidth="1200.0" styleClass="background" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RootLayoutController">
+<BorderPane fx:id="rootLayout" prefHeight="900.0" prefWidth="1200.0" styleClass="background" stylesheets="@../css/MyCSS.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootLayoutController">
   <bottom>
     <AnchorPane prefHeight="29.0" prefWidth="1200.0000999999975">
       <children>
+            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="1200.0" styleClass="formbutton" stylesheets="@../css/MyCSS.css" text="Button" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <VBox id="swiButtonVBOox" fx:id="swiButtonVBox" layoutX="0.0" layoutY="15.0" prefHeight="29.0" prefWidth="108.0" />
       </children>
     </AnchorPane>
@@ -32,11 +33,11 @@
     </ScrollPane>
   </center>
   <left>
-    <AnchorPane fx:id="leftArea" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" styleClass="shapeclass" BorderPane.alignment="CENTER">
+    <AnchorPane fx:id="leftArea" blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" styleClass="shapeclass" stylesheets="@../css/MyCSS.css" BorderPane.alignment="CENTER">
       <children>
         <AnchorPane fx:id="shapeArea" prefHeight="200.0" prefWidth="200.0">
           <children>
-            <Button fx:id="shapeORLine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeShapeORLine" prefHeight="30.0" prefWidth="200.0" styleClass="shapeorline" text="Shape" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="shapeORLine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeShapeORLine" prefHeight="30.0" prefWidth="200.0" styleClass="shapeorline" stylesheets="@../css/MyCSS.css" text="Shape" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
               <font>
                 <Font name="System Bold Italic" size="24.0" />
               </font>
@@ -101,28 +102,53 @@
     </AnchorPane>
   </left>
   <right>
-    <AnchorPane prefHeight="868.0" prefWidth="237.0" styleClass="attribute" BorderPane.alignment="CENTER">
+    <AnchorPane prefHeight="868.0" prefWidth="237.0" styleClass="attribute" stylesheets="@../css/MyCSS.css" BorderPane.alignment="CENTER">
       <children>
         <ImageView id="" fx:id="workingImageView" fitHeight="123.0" fitWidth="174.0" layoutX="32.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../../image/prepare.png" />
           </image>
         </ImageView>
-        <Label layoutX="29.0" layoutY="355.0" text="Text :" />
-        <TextArea fx:id="textArea" layoutX="25.0" layoutY="388.0" prefHeight="140.0" prefWidth="188.0" promptText="Describe your graphics" />
-        <Label layoutX="30.0" layoutY="317.0" prefHeight="20.0" prefWidth="48.0" text="Type  :" />
-        <ChoiceBox layoutX="92.0" layoutY="314.0" prefHeight="23.0" prefWidth="128.0" />
-        <Label layoutX="30.0" layoutY="281.0" prefHeight="0.0" prefWidth="47.0" text="Color :" />
-        <ColorPicker layoutX="91.0" layoutY="277.0" prefHeight="23.0" prefWidth="130.0" />
-        <Label layoutX="24.0" layoutY="240.0" prefHeight="20.0" prefWidth="44.0" text="W :" />
-        <TextField fx:id="textFieldH" layoutX="159.0" layoutY="237.0" prefHeight="23.0" prefWidth="61.0" />
-        <Label layoutX="25.0" layoutY="210.0" prefHeight="20.0" prefWidth="26.0" text="X : " />
-        <TextField fx:id="textFieldY" layoutX="159.0" layoutY="206.0" prefHeight="23.0" prefWidth="61.0" />
-        <TextField fx:id="textFieldX" layoutX="56.0" layoutY="207.0" prefHeight="25.0" prefWidth="64.0" />
-        <Label layoutX="124.0" layoutY="208.0" prefHeight="20.0" prefWidth="32.0" text=" Y :  " />
-        <Label layoutX="127.0" layoutY="240.0" prefHeight="20.0" prefWidth="44.0" text="H :" />
-        <TextField fx:id="textFieldW" layoutX="58.0" layoutY="239.0" prefHeight="23.0" prefWidth="61.0" />
-        <Button fx:id="button2" layoutX="156.0" layoutY="542.0" mnemonicParsing="false" text="修改" />
+            <VBox layoutX="18.0" layoutY="205.0" prefHeight="174.0" prefWidth="207.0">
+               <children>
+                  <HBox prefHeight="30.0" prefWidth="207.0">
+                     <children>
+                    <Label prefHeight="30.0" prefWidth="31.0" text="X : " />
+                    <TextField fx:id="textFieldX" prefHeight="28.0" prefWidth="66.0" />
+                    <Label prefHeight="31.0" prefWidth="44.0" text="    Y :  " />
+                    <TextField fx:id="textFieldY" prefHeight="28.0" prefWidth="64.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="30.0" prefWidth="207.0">
+                     <children>
+                    <Label prefHeight="30.0" prefWidth="32.0" text="W :" />
+                    <TextField fx:id="textFieldW" prefHeight="30.0" prefWidth="66.0" />
+                    <Label prefHeight="31.0" prefWidth="44.0" text="    H :" />
+                    <TextField fx:id="textFieldH" prefHeight="30.0" prefWidth="63.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="16.0" prefWidth="207.0" />
+                  <HBox prefHeight="32.0" prefWidth="207.0">
+                     <children>
+                    <Label prefHeight="22.0" prefWidth="78.0" text="TextColor :" />
+                    <ColorPicker prefHeight="23.0" prefWidth="123.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="32.0" prefWidth="207.0">
+                     <children>
+                    <Label prefHeight="20.0" prefWidth="77.0" text="FillColor    :" />
+                        <ColorPicker prefHeight="23.0" prefWidth="124.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="207.0">
+                     <children>
+                    <Label prefHeight="31.0" prefWidth="70.0" text="Text :" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+        <TextArea fx:id="textArea" layoutX="25.0" layoutY="378.0" prefHeight="158.0" prefWidth="188.0" promptText="Describe your graphics" />
+        <Button fx:id="button2" layoutX="172.0" layoutY="542.0" mnemonicParsing="false" text="修改" />
       </children>
     </AnchorPane>
   </right>
@@ -131,20 +157,20 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#menuNew" text="New" />
-            <MenuItem mnemonicParsing="false" onAction="#menuSave" text="Save" />
-            <MenuItem mnemonicParsing="false" onAction="#menuOpen" text="Open" />
-            <MenuItem mnemonicParsing="false" onAction="#menuExport" text="export" />
+            <MenuItem mnemonicParsing="false" onAction="#menuNew" styleClass="menultem" text="New" />
+            <MenuItem mnemonicParsing="false" onAction="#menuSave" styleClass="menultem" text="Save" />
+            <MenuItem mnemonicParsing="false" onAction="#menuOpen" styleClass="menultem" text="Open" />
+            <MenuItem mnemonicParsing="false" onAction="#menuExport" styleClass="menultem" text="Export" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Format">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#changeModel" text="Code Model" fx:id="ModelMenuItem" />
+            <MenuItem fx:id="ModelMenuItem" mnemonicParsing="false" onAction="#changeModel" styleClass="menultem" text="Code Model" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" styleClass="menultem" text="About" />
           </items>
         </Menu>
       </menus>
