@@ -265,7 +265,7 @@ public class MyLine extends Line {
 	}
 	public String toString(int factoryID) {
 		DecimalFormat df = new DecimalFormat("#.00");
-		String tostring = getClass().getSimpleName()+"< "+factoryID+" >" + "(" + df.format(this.startX) + "," + df.format(startY) + "," + df.format(endX) + ","
+		String tostring = getClass().getSimpleName() +"<"+factoryID+">"+ "(" + df.format(this.startX) + "," + df.format(startY) + "," + df.format(endX) + ","
 				+ df.format(endY) + ")" + "[ " +" " + " ]" + " ;\n";
 		return tostring;
 	}
