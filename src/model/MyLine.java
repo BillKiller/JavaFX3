@@ -1,11 +1,13 @@
 package model;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import controller.DrawController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Cursor;
+import javafx.scene.chart.Axis;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -13,44 +15,9 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 
 public class MyLine extends Line {
-
-
-	public double getSX() {
-		return startX;
-	}
-	public void setSX(double startX) {
-		this.startX = startX;
-	}
-	public double getSY() {
-		return startY;
-	}
-	public void setSY(double startY) {
-		this.startY = startY;
-	}
-	public double getEX() {
-		return endX;
-	}
-	public void setEX(double endX) {
-		this.endX = endX;
-	}
-	public double getEY() {
-		return endY;
-	}
-	public void setEY(double endY) {
-		this.endY = endY;
-	}
-	public boolean isSelected() {
-		return isSelected;
-	}
-	public void setSelected(boolean isSelected) {
-		this.isSelected = isSelected;
-	}
-	// ͼ�εĹ������
 	protected int factoryID;
-	// ���������������
 	protected AnchorPane drawingArea;
 	protected DrawController drawController;
-	// ������Ϣ
 	protected double startX;
 	protected double startY;
 	protected double endX;
@@ -61,22 +28,25 @@ public class MyLine extends Line {
 	protected Polygon triangle;
 	protected Line line;
 	protected Circle circle;
-	//���ӵ�ͼ��
+	// 连接信息
 	protected MyShape headLinkShape;
 	protected MyShape tailLinkShape;
-	// ״̬����
 	protected boolean isOnTheLine = false;
 	protected boolean isSelected;
 	protected BooleanProperty booleanProperty;
+	protected ArrayList<Circle> middlePoints;
 
 	public MyLine() {
 		this.booleanProperty = new SimpleBooleanProperty(false);
 	}
-	public MyLine(double startX, double startY, double endX, double endY,int factoryID) {
-		this(startX,startY,endX,endY);
-		this.factoryID=factoryID;
+
+	public MyLine(double startX, double startY, double endX, double endY, int factoryID) {
+		this(startX, startY, endX, endY);
+		this.factoryID = factoryID;
 	}
+
 	public MyLine(double startX, double startY, double endX, double endY) {
+		middlePoints=new ArrayList<>();
 		line = new Line(startX, startY, endX, endY);
 		circle = new Circle();
 		this.booleanProperty = new SimpleBooleanProperty(false);
@@ -86,27 +56,73 @@ public class MyLine extends Line {
 		this.endY = endY;
 		circle.setCenterX(startX);
 		circle.setCenterY(startY);
-		circle.setRadius(3);
+		circle.setRadius(5);
 		line.setStrokeWidth(3);
 		triangle = new Polygon();
 		setShape();
 		startListening();
 	}
+
+	public double getSX() {
+		return startX;
+	}
+
+	public void setSX(double startX) {
+		this.startX = startX;
+	}
+
+	public double getSY() {
+		return startY;
+	}
+
+	public void setSY(double startY) {
+		this.startY = startY;
+	}
+
+	public double getEX() {
+		return endX;
+	}
+
+	public void setEX(double endX) {
+		this.endX = endX;
+	}
+
+	public double getEY() {
+		return endY;
+	}
+
+	public void setEY(double endY) {
+		this.endY = endY;
+	}
+
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+
 	public void setHeadLink(MyShape shape) {
-		this.headLinkShape=shape;
+		this.headLinkShape = shape;
 	}
+
 	public void setTailLink(MyShape shape) {
-		this.tailLinkShape=shape;
+		this.tailLinkShape = shape;
 	}
+
 	public Circle getCircle() {
 		return this.circle;
 	}
+
 	public Line getLine() {
 		return this.line;
 	}
+
 	public Polygon getTriangle() {
 		return this.triangle;
 	}
+
 	public BooleanProperty getBooleanProperty() {
 		return booleanProperty;
 	}
@@ -114,6 +130,11 @@ public class MyLine extends Line {
 	public void setBooleanProperty(BooleanProperty booleanProperty) {
 		this.booleanProperty = booleanProperty;
 	}
+	
+	public ArrayList<Circle> getMiddlePoints() {
+		return middlePoints;
+	}
+	
 	public void setShape() {
 		double dx = endX - startX;
 		double dy = endY - startY;
@@ -140,11 +161,9 @@ public class MyLine extends Line {
 		line.setEndY(this.endY);
 		isSelected = true;
 		booleanProperty.setValue(true);
-
+		middlePoints.clear();
+		middlePoints.add(new Circle((startX+endX)/2,(startY+endY)/2,StandardNum.DRAW_POINTS_RADIUS));
 	}
-//	public void setToShape(Double[] list){
-//
-//	}
 
 	public void getPane(AnchorPane drawingArea, DrawController drawController) {
 		drawingArea.getChildren().add(line);
@@ -160,14 +179,12 @@ public class MyLine extends Line {
 	}
 
 	public void endMove(double x, double y) {
-		// ĩ�˵��ƶ��Ǹ��ݾ���λ��
 		endX = x - triangle.getParent().getLayoutX();
 		endY = y - triangle.getParent().getLayoutY();
 		setShape();
 	}
 
 	public void move(double dx, double dy) {
-		// �˴��ƶ��Ǹ������λ�ƶ����Ǿ���λ��
 		startX = startX + dx;
 		startY = startY + dy;
 		endX = endX + dx;
@@ -180,21 +197,23 @@ public class MyLine extends Line {
 		startY = y - triangle.getParent().getLayoutY();
 		setShape();
 	}
-	public void delete(){
+
+	public void delete() {
 		drawingArea.getChildren().remove(line);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
 	}
+
 	public void changeListener() {
 		booleanProperty.addListener(e -> {
 			if (booleanProperty.getValue() == false) {
-				// ������巢���ı�˵����������ǵ�ǰ������Shape����ʱ�Ҳ����������ʾ���Shape������
 				drawController.getPropertyController().setWorkShape(this);
 				drawController.getPropertyController().update();
 				drawController.saveChange();
 			}
 		});
 	}
+
 	protected void startListening() {
 		changeListener();
 		triangle.setCursor(Cursor.HAND);
@@ -202,30 +221,30 @@ public class MyLine extends Line {
 		line.setCursor(Cursor.MOVE);
 		triangle.setOnMouseDragged(e -> {
 			e.setDragDetect(true);
-			drawController.checkDistanceToPoints(e.getX(), e.getY());
+			drawController.checkDistanceToPoints(e.getX(), e.getY(),this);
 			endMove(e.getX(), e.getY());
 		});
 		triangle.setOnMouseReleased(e -> {
 			this.setToTop();
-			if(tailLinkShape!=null)tailLinkShape.delConnectionInfo(this);
-			drawController.connect(e.getX(),e.getY(),"end",this);
+			if (tailLinkShape != null)
+				tailLinkShape.delConnectionInfo(this);
+			drawController.connect(e.getX(), e.getY(), "end", this);
 			booleanProperty.setValue(false);
 		});
 		circle.setOnMouseDragged(e -> {
-			drawController.checkDistanceToPoints(e.getX(), e.getY());
+			drawController.checkDistanceToPoints(e.getX(), e.getY(),this);
 			startMove(e.getX(), e.getY());
 		});
 		circle.setOnMouseReleased(e -> {
 			this.setToTop();
 			booleanProperty.setValue(false);
-			if(headLinkShape!=null)headLinkShape.delConnectionInfo(this);
-			drawController.connect(e.getX(),e.getY(),"start",this);
+			if (headLinkShape != null)
+				headLinkShape.delConnectionInfo(this);
+			drawController.connect(e.getX(), e.getY(), "start", this);
 		});
-		/*
-		 * ֱ�ߵ���ת�ͷ����Ƚϼ򵥾��Ǹ��������ε�λ�������е�����ֱ������ĩ��Ϊ��굱ǰλ�ü��� ֱ�ߵ�ƽ�ƱȽϸ��ӣ�����ʵ�����£�
-		 * ��¼��꿪ʼ��λ�ã�������ƶ���line�����ʱ���¼�������겻�Ƴ���ô���ı���һ��λ�� ������ƶ���ʱ������µ��ƶ�λ�ã�dx =
-		 * e.getX()-lastX,dy = getY()-lastY; ��������ƶ���λ�ƶ������˵������Ӧ��ƽ��
-		 */
+		
+		
+		
 		line.setOnMouseEntered(e -> {
 			if (!isOnTheLine) {
 				lastX = e.getX();
@@ -244,10 +263,12 @@ public class MyLine extends Line {
 			move(dx, dy);
 			isSelected = false;
 		});
-		line.setOnMouseReleased(e->{
+		line.setOnMouseReleased(e -> {
 			this.setToTop();
-			if(headLinkShape!=null)headLinkShape.delConnectionInfo(this);
-			if(tailLinkShape!=null)tailLinkShape.delConnectionInfo(this);
+			if (headLinkShape != null)
+				headLinkShape.delConnectionInfo(this);
+			if (tailLinkShape != null)
+				tailLinkShape.delConnectionInfo(this);
 			if (isSelected == false) {
 				drawController.clearAllOnEdit();
 				isSelected = true;
@@ -256,22 +277,26 @@ public class MyLine extends Line {
 			}
 		});
 	}
+
 	@Override
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("#.00");
-		String tostring = getClass().getSimpleName()+"< "+factoryID+" >" + "(" + df.format(this.startX) + "," + df.format(startY) + "," + df.format(endX) + ","
-				+ df.format(endY) + ")" + "[ " +" " + " ]" + " ;\n";
+		String tostring = getClass().getSimpleName() + "< " + factoryID + " >" + "(" + df.format(this.startX) + ","
+				+ df.format(startY) + "," + df.format(endX) + "," + df.format(endY) + ")" + "[ " + " " + " ]" + " ;\n";
 		return tostring;
 	}
+
 	public String toString(int factoryID) {
 		DecimalFormat df = new DecimalFormat("#.00");
-		String tostring = getClass().getSimpleName()+"< "+factoryID+" >" + "(" + df.format(this.startX) + "," + df.format(startY) + "," + df.format(endX) + ","
-				+ df.format(endY) + ")" + "[ " +" " + " ]" + " ;\n";
+		String tostring = getClass().getSimpleName() + "< " + factoryID + " >" + "(" + df.format(this.startX) + ","
+				+ df.format(startY) + "," + df.format(endX) + "," + df.format(endY) + ")" + "[ " + " " + " ]" + " ;\n";
 		return tostring;
 	}
+
 	public int getFactoryID() {
 		return factoryID;
 	}
+
 	public void setFactoryID(int factoryID) {
 		this.factoryID = factoryID;
 	}

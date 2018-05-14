@@ -72,6 +72,7 @@ public class DrawController {
 		compiler.getTextArea().setText(getCode());
 	}
 	public void connect(double x1, double y1, String type, MyLine line) {
+		System.out.println(x1+" "+y1);
 		double minDistance = 100000;
 		nearPoint = null;
 		MyShape nearShape = null;
@@ -94,8 +95,26 @@ public class DrawController {
 				}
 			}
 		}
+		for(MyLine nowLine:listLine) {
+			if(nowLine==line)continue;
+			ArrayList<Circle> middlePoints=nowLine.getMiddlePoints();
+			System.out.print(nowLine);
+			for(Circle nowCircle:middlePoints) {
+				System.out.println(nowCircle.getCenterX()+" "+nowCircle.getCenterY());
+				nowCircle.setVisible(false);
+				double x2, y2;
+				x2 = nowCircle.getCenterX();
+				y2 = nowCircle.getCenterY();
+				double distance = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+				System.out.println(distance);
+				if (distance < maxDistance && distance < minDistance) {
+					nearPoint = nowCircle;
+					minDistance = distance;
+				}
+			}
+		}
 		if (nearPoint != null) {
-			nearShape.addConnectionInfo(new ConnectionInfo(line, location, part,this));
+			if(nearShape!=null)nearShape.addConnectionInfo(new ConnectionInfo(line, location, part,this));
 			if (type.equals("end")) {
 				line.endMove(nearPoint.getCenterX(), nearPoint.getCenterY());
 				line.setTailLink(nearShape);
@@ -112,7 +131,7 @@ public class DrawController {
 		this.nearPoint = nearPoint;
 	}
 
-	public void checkDistanceToPoints(double x1, double y1) {
+	public void checkDistanceToPoints(double x1, double y1,MyLine line) {
 		for (MyShape nowShape : list) {
 			for (Circle nowCircle : nowShape.getDrawPoints().getCircles()) {
 				double x2, y2;
@@ -120,6 +139,21 @@ public class DrawController {
 				y2 = nowCircle.getCenterY();
 				double distance = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 				if (distance < maxDistance) {
+					nowCircle.setVisible(true);
+				} else {
+					nowCircle.setVisible(false);
+				}
+			}
+		}
+		for(MyLine nowLine:listLine) {
+			if(nowLine==line)continue;
+			ArrayList<Circle> middlePoints=nowLine.getMiddlePoints();
+			for(Circle nowCircle:middlePoints) {
+				double x2, y2;
+				x2 = nowCircle.getCenterX();
+				y2 = nowCircle.getCenterY();
+				double distance = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+				if (distance < maxDistance ) {
 					nowCircle.setVisible(true);
 				} else {
 					nowCircle.setVisible(false);

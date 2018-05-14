@@ -53,6 +53,11 @@
                     <Image url="@../../image/BrokenLine.png" />
                   </image>
                 </ImageView>
+                        <ImageView fx:id="DoubleBrokenLine" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../image/BrokenLine.png" />
+                           </image>
+                        </ImageView>
               </children>
             </VBox>
             <VBox fx:id="shapeVBox" alignment="TOP_CENTER" prefHeight="809.0" prefWidth="201.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
@@ -93,7 +98,7 @@
         </AnchorPane>
         <AnchorPane fx:id="codeArea" prefHeight="864.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
-            <Button fx:id="codeButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Draw by Code" />
+            <Button fx:id="codeButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="200.0" text="Draw by Code" />
             <TextArea fx:id="codeTextArea" prefHeight="862.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
           </children>
         </AnchorPane>

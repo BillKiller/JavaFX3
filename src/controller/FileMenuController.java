@@ -21,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class MenuController {
+public class FileMenuController {
 
 	public void newDrawingArea(AnchorPane drawingArea) {
 		while (drawingArea.getChildren().size() != 0) {
