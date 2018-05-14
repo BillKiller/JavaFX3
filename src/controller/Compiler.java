@@ -18,18 +18,23 @@ public class Compiler {
 		this.textArea = textArea;
 	}
 	public Double[] getRound(String shape){
-		Double []list=new Double[4];
-		for(int i =0;i<list.length;i++)list[i] = new Double("0");
+		ArrayList<Double> list = new ArrayList<>();
 		Pattern pattern = Pattern.compile("(?<=\\()[^\\)]+");
 		Matcher matcher = pattern.matcher(shape);
 		if(matcher.find()){
 			String temp = matcher.group();
 			String tt[]=temp.split(",");
 			for(int i =0;i<tt.length;i++){
-				list[i] = Double.valueOf(tt[i]);
+				list.add(Double.valueOf(tt[i]));
+				System.out.println((Double.valueOf(tt[i])));
 			}
 		}
-		return list;
+		if(list.size() == 0){
+			return null;
+		}
+		Double[] temp = new Double[list.size()];
+		list.toArray(temp);
+		return temp;
 	}
 	public int  getID(String shape){
 		int id=0;
@@ -98,7 +103,8 @@ public class Compiler {
 			if(kind.indexOf("Line")==-1){
 				cssList.add(css);
 			}
-			shapeFactory.produce(kind,list[0],list[1],list[2],list[3],text,id);
+			if(list.length == 4)shapeFactory.produce(kind,list[0],list[1],list[2],list[3],text,id);
+			else shapeFactory.produce(kind,list[0],list[1], list[2], list[3], list[4], text, id);
 		}
 		for(int i=0;i<cssList.size();i++){
 			drawController.getList().get(i).setCSS(cssList.get(i));

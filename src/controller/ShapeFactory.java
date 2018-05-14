@@ -9,6 +9,7 @@ import javafx.scene.shape.Circle;
 import model.BrokenLine;
 import model.CurvedRectangle;
 import model.Decision;
+import model.DoubleBrokenLine;
 import model.InputRectangle;
 import model.MyCircle;
 import model.MyLine;
@@ -22,7 +23,7 @@ public class ShapeFactory {
 	private DrawController drawController;
 
 	/*
-	 * ¹¤³§ÊÇ¶àÈë¿Úµ¥³ö¿ÚµÄ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½Úµï¿½
 	 */
 	public ShapeFactory(AnchorPane drawingArea, DrawController drawController) {
 		this.drawingArea = drawingArea;
@@ -61,12 +62,17 @@ public class ShapeFactory {
 
 	public MyLine newMyLine(double sx, double sy, double ex, double ey) {
 		countShapeID++;
-		return new MyLine(sx, sy, ex, ey,countShapeID);
+		return new MyLine(sx, sy, ex, ey, countShapeID);
 	}
 
-	public MyLine newDogLegLine(double sx, double sy, double ex, double ey) {
+	public MyLine newBrokenLine(double sx, double sy, double ex, double ey) {
 		countShapeID++;
-		return new BrokenLine(sx, sy, ex, ey,countShapeID);
+		return new BrokenLine(sx, sy, ex, ey, countShapeID);
+	}
+
+	public MyLine newDoubleBrokenLine(double sx, double sy, double ex, double ey, double ax) {
+		countShapeID++;
+		return new DoubleBrokenLine(sx, sy, ex, ey, ax, countShapeID);
 	}
 
 	public DrawController getDrawController() {
@@ -76,43 +82,54 @@ public class ShapeFactory {
 	public void setDrawController(DrawController drawController) {
 		this.drawController = drawController;
 	}
-	// -----------ÏÂÃæÖ÷ÒªÓÃÓÚÉú³É
-	public void produce(String kind, double x, double y,double width,double height,String text,int id) {
-		if(kind == null)return;
+
+	// -----------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public void produce(String kind, double x, double y, double width, double height, String text, int id) {
+		if (kind == null)
+			return;
 		kind = kind.replaceAll("Image", "");
 		if (kind.indexOf("Line") != -1) {
-			MyLine line=produceMyLine(kind, x, y,width,height);
+			MyLine line = produceMyLine(kind, x, y, width, height);
 			line.setFactoryID(id);
 		} else {
-			MyShape shape = productMyShape(kind, x, y,width,height,text);
+			MyShape shape = productMyShape(kind, x, y, width, height, text);
 			shape.getText().setText(text);
 			shape.setFactoryID(id);
 			shape.update();
 		}
 	}
-	public void produce(String kind, double x, double y,double width,double height,String text,int id,String css) {
-		if(kind == null)return;
+	public void produce(String kind, double x, double y,double ex,double ey, double aX,String text, int id) {
+		 if(kind == null)return;
+		 MyLine shape= produceMyLine(kind,x, y, ex, ey, aX);
+		 drawController.regristeLine(shape);
+	}
+	public void produce(String kind, double x, double y, double width, double height, String text, int id, String css) {
+		if (kind == null)
+			return;
 		kind = kind.replaceAll("Image", "");
 		if (kind.indexOf("Line") != -1) {
-			MyLine line=produceMyLine(kind, x, y,width,height);
+			MyLine line = produceMyLine(kind, x, y, width, height);
 		} else {
-			MyShape shape = productMyShape(kind, x, y,width,height,text);
+			MyShape shape = productMyShape(kind, x, y, width, height, text);
 			shape.getText().setText(text);
 			shape.setCSS(css);
 			shape.update();
 		}
 	}
-	public void produce(String kind, double x, double y,double width,double height,String text) {
-		if(kind == null)return;
+
+	public void produce(String kind, double x, double y, double width, double height, String text) {
+		if (kind == null)
+			return;
 		kind = kind.replaceAll("Image", "");
 		if (kind.indexOf("Line") != -1) {
-			MyLine line=produceMyLine(kind, x, y,width,height);
+			MyLine line = produceMyLine(kind, x, y, width, height);
 		} else {
-			MyShape shape = productMyShape(kind, x, y,width,height,text);
+			MyShape shape = productMyShape(kind, x, y, width, height, text);
 			shape.getText().setText(text);
 			shape.update();
 		}
 	}
+
 	public int getCountShapeID() {
 		return countShapeID;
 	}
@@ -135,7 +152,7 @@ public class ShapeFactory {
 		return shape;
 	}
 
-	public MyShape productMyShape(String kind, double x, double y, double width, double height,String text) {
+	public MyShape productMyShape(String kind, double x, double y, double width, double height, String text) {
 		MyShape shape = null;
 		switch (kind) {
 		case "CurvedRectangle":
@@ -190,7 +207,8 @@ public class ShapeFactory {
 		default:
 			break;
 		}
-		// Éú²úÍêÁËµÄ²úÆ·Òª½»¸ø¹ÜÀíÕßµÇ¼Ç½øÈëÁÐ±í·½±ãÒÔºó¹ÜÀí
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄ²ï¿½Æ·Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµÇ¼Ç½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½
+		System.out.println(shape);
 		drawController.regriste(shape);
 		return shape;
 	}
@@ -202,7 +220,10 @@ public class ShapeFactory {
 			shape = newMyLine(x, y, x, y + 100);
 			break;
 		case "BrokenLine":
-			shape = newDogLegLine(x, y, x, y + 100);
+			shape = newBrokenLine(x, y, x + 100, y + 100);
+			break;
+		case "DoubleBrokenLine":
+			shape = newDoubleBrokenLine(x, y, x, y + 100, x - 100);
 			break;
 		default:
 			break;
@@ -210,7 +231,12 @@ public class ShapeFactory {
 		drawController.regristeLine(shape);
 		return shape;
 	}
-	public MyLine produceMyLine(String kind, double x, double y,double ex, double ey) {
+	public MyLine produceMyLine(String kind, double x, double y, double ex, double ey,double aX) {
+		MyLine  shape = null;
+		shape = newDoubleBrokenLine(x, y, ex, ey,aX);
+		return shape;
+	}
+	public MyLine produceMyLine(String kind, double x, double y, double ex, double ey) {
 		MyLine shape = null;
 		System.out.println(kind);
 		switch (kind) {
@@ -218,7 +244,7 @@ public class ShapeFactory {
 			shape = newMyLine(x, y, ex, ey);
 			break;
 		case "BrokenLine":
-			shape = newDogLegLine(x, y, ex, ey);
+			shape = newBrokenLine(x, y, ex, ey);
 			break;
 		default:
 			break;

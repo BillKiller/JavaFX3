@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import controller.DrawController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Cursor;
@@ -16,6 +18,7 @@ public class BrokenLine extends MyLine{
 		this.factoryID = factoryID;
 	}
 	public BrokenLine(double startX, double startY, double endX, double endY) {
+		middlePoints=new ArrayList<>();
 		this.startX = startX;
 		this.startY = startY;
 		this.endX = endX;
@@ -29,9 +32,10 @@ public class BrokenLine extends MyLine{
 		circle = new Circle();
 		circle.setCenterX(startX);
 		circle.setCenterY(startY);
-		circle.setRadius(3);
+		circle.setRadius(5);
 		triangle = new Polygon();
 		setShape();
+		this.isSelected = false;
 		super.startListening();
 		addLineListening();
 	}
@@ -71,6 +75,9 @@ public class BrokenLine extends MyLine{
 		yLine.setStartY(startY);
 		yLine.setEndX(this.endX);
 		yLine.setEndY(this.endY);
+		middlePoints.clear();
+		middlePoints.add(new Circle((startX+endX)/2,startY,StandardNum.DRAW_POINTS_RADIUS));
+		middlePoints.add(new Circle(endX,(startY+endY)/2,StandardNum.DRAW_POINTS_RADIUS));
 		isSelected = true;
 		booleanProperty.setValue(true);
 	}

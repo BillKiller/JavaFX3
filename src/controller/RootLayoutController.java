@@ -1,8 +1,11 @@
 package controller;
 
+import java.awt.Image;
 import java.net.URL;
 import java.util.IllegalFormatCodePointException;
 import java.util.ResourceBundle;
+
+import javax.xml.bind.annotation.XmlInlineBinaryData;
 
 import com.sun.javafx.perf.PerformanceTracker.SceneAccessor;
 import com.sun.javafx.tk.TKDragGestureListener;
@@ -35,6 +38,7 @@ import javafx.stage.FileChooser;
 import model.BrokenLine;
 import model.CurvedRectangle;
 import model.Decision;
+import model.DoubleBrokenLine;
 import model.BrokenLine;
 import model.InputRectangle;
 import model.MyCircle;
@@ -55,16 +59,17 @@ public class RootLayoutController implements Initializable {
 	private AnchorPane shapeArea;
 	@FXML
 	private AnchorPane codeArea;
+
 	@FXML
 	private TextArea codeTextArea;
 	@FXML
 	private MenuItem ModelMenuItem;
-
 	@FXML
 	private TextField textfield;
 	@FXML
 	private Button Button;
-	//shape
+
+	// shape
 	@FXML
 	private ImageView RoundRectangle;
 	@FXML
@@ -77,9 +82,15 @@ public class RootLayoutController implements Initializable {
 	private ImageView Circular;
 	@FXML
 	private ImageView CurvedRectangle;
-	//line
+	// line
 	@FXML
 	private ImageView MyLine;
+	@FXML
+	private ImageView BrokenLine;
+	@FXML
+	private ImageView DoubleBrokenLine;
+	// 右侧栏
+
 	@FXML
 	private AnchorPane keyBoardPane;
 	@FXML
@@ -90,62 +101,60 @@ public class RootLayoutController implements Initializable {
 	private TextField textFieldX;
 	@FXML
 	private TextField textFieldY;
-
 	@FXML
 	private TextArea textArea;
-
 	@FXML
 	private Button button2;
-
 	@FXML
 	private Button shapeORLine;
 	@FXML
 	private VBox shapeVBox;
-
 	@FXML
 	private VBox lineVBox;
-
 	@FXML
 	private ImageView workingImageView;
-
 	@FXML
 	private VBox swiButtonVBox;
-	private boolean isShape;
-
-
 	@FXML
 	private Button codeButton;
 
+	// 图层相关的控制器，工厂
 	private Compiler compiler;
+	private ShapeFactory shapeFactory;
+	private DrawController drawController;
+	private PropertyController propertyController;
+	private FileMenuController menuController;
 
-	private SwitchButton switchButton;
-
-	private MenuController menuController;
 	public void menuNew() {
 		menuController.newDrawingArea(drawingArea);
 	}
+
 	public void menuSave() {
 		menuController.saveDrawingArea(drawController);
 	}
+
 	public void menuOpen() {
 		menuController.getDrawingArea(compiler);
 	}
+
 	public void menuExport() {
 		menuController.exportDrawingArea(drawingArea);
 	}
 
-	boolean isCodeModel=false;
+	private SwitchButton switchButton;
+	boolean isCodeModel = false;
+
 	public void changeModel() {
-		if(isCodeModel==true) {
-			isCodeModel=false;
+		if (isCodeModel == true) {
+			isCodeModel = false;
 			ModelMenuItem.setText("Change To Code Model");
 			switchButton.setGraph();
 			shapeArea.setVisible(true);
 			codeArea.setVisible(false);
 			leftArea.setPrefWidth(200);
 			codeButton.setPrefWidth(200);
-		}else {
-			isCodeModel=true;
+		} else {
+			isCodeModel = true;
 			ModelMenuItem.setText("Change To Draw Model");
 			switchButton.setCode();
 			shapeArea.setVisible(false);
@@ -155,30 +164,28 @@ public class RootLayoutController implements Initializable {
 		}
 	}
 
+	private boolean isShape;
+
 	public void changeShapeORLine() {
-		if(isShape) {
-			isShape=false;
+		if (isShape) {
+			isShape = false;
 			shapeORLine.setText("Line");
 
 			shapeVBox.setVisible(false);
 			lineVBox.setVisible(true);
-		}else {
-			isShape=true;
+		} else {
+			isShape = true;
 			shapeORLine.setText("Shape");
 			shapeVBox.setVisible(true);
 			lineVBox.setVisible(false);
 		}
 	}
 
-
-	private DrawController drawController;
-	private PropertyController propertyController;
-	ShapeFactory shapeFactory;
-	String selectShape = null;
+	private String selectShape = null;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		// 设置鼠标手势
 		RoundRectangle.setCursor(Cursor.HAND);
 		Rectangle.setCursor(Cursor.HAND);
 		Decision.setCursor(Cursor.HAND);
@@ -186,61 +193,58 @@ public class RootLayoutController implements Initializable {
 		Circular.setCursor(Cursor.HAND);
 		CurvedRectangle.setCursor(Cursor.HAND);
 		MyLine.setCursor(Cursor.HAND);
+		BrokenLine.setCursor(Cursor.HAND);
+		DoubleBrokenLine.setCursor(Cursor.HAND);
+		// 初始化控制器和工厂
+		drawController = new DrawController(drawingArea);
+		shapeFactory = new ShapeFactory(drawingArea, drawController);
+		compiler = new Compiler();
+		compiler.setShapeFactory(shapeFactory);
+		compiler.setTextArea(codeTextArea);
+		codeButton.setOnMouseClicked(e -> {
+			compiler.compireProduce(codeTextArea.getText());
+		});
+		drawController.setCompiler(compiler);
+		propertyController = new PropertyController(textFieldX, textFieldY, textFieldW, textFieldH, textArea);
+		propertyController.setButton(button2);
+		propertyController.setWorkingImaging(workingImageView);
+		propertyController.edit();
+		propertyController.setDrawController(drawController);
+		drawController.setPropertyController(propertyController);
+		drawController.setKeyBoardManager();
+		menuController = new FileMenuController();
 
-		drawController=new DrawController(drawingArea);
-		shapeFactory=new ShapeFactory(drawingArea,drawController);
-
+		// 模式初始化
 		shapeArea.setVisible(true);
 		codeArea.setVisible(false);
 		ModelMenuItem.setText("Change To Code Model");
-		isShape=true;
+		isShape = true;
 		shapeVBox.setVisible(true);
 		lineVBox.setVisible(false);
-		//加入转换button
-
+		// 加入转换button
 		switchButton = new SwitchButton(this);
-
 		swiButtonVBox.getChildren().add(switchButton);
 
-		compiler = new Compiler();
-		compiler.setShapeFactory(shapeFactory);
-		drawController.setCompiler(compiler);
-		compiler.setTextArea(codeTextArea);
-		codeButton.setOnMouseClicked(e->{
-				compiler.compireProduce(codeTextArea.getText());
-		});
+//		DoubleBrokenLine myLine = new DoubleBrokenLine(500, 500, 500, 300, 300);
+//		myLine.getPane(drawingArea, drawController);
 
-		menuController=new MenuController();
-
-
-//		DoubleBrokenLine myLine = new DoubleBrokenLine(500, 500, 300, 200);
-//		myLine.getPane(drawingArea,drawController);
-
-	    propertyController = new PropertyController(textFieldX,textFieldY,textFieldW,textFieldH,textArea);
-	    propertyController.setButton(button2);
-	    propertyController.setWorkingImaging(workingImageView);
-	    propertyController.edit();
-	    propertyController.setDrawController(drawController);
-	    drawController.setPropertyController(propertyController);
-	    drawController.setKeyBoardManager();
-
+		// 设置添加图形的动作，需要绘图区和图标区
 		drawingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				//drawController.clearAllOnEdit();
+				// drawController.clearAllOnEdit();
 				keyBoardPane.requestFocus();
 				if (event.getClickCount() == 1 && selectShape != null) {
 					double x, y;
 					x = event.getX();
 					y = event.getY();
-
 					shapeFactory.produce(selectShape, x, y);
-//					drawController.addDrawArea();
+					// drawController.addDrawArea();
 					selectShape = null;
 				}
-				if(event.getClickCount() ==1 && selectShape == null){
-						drawController.getPropertyController().setWorkShape(drawController.workingShape());
-						drawController.getPropertyController().update();
+				if (event.getClickCount() == 1 && selectShape == null) {
+					drawController.getPropertyController().setWorkShape(drawController.workingShape());
+					drawController.getPropertyController().update();
 				}
 			}
 		});
@@ -250,10 +254,10 @@ public class RootLayoutController implements Initializable {
 			public void handle(MouseEvent event) {
 				if (event.getClickCount() == 2) {
 					if (event.getTarget().getClass() == ImageView.class) {
-						int x,y;
-						x=300;
-						y=300;
-						selectShape=((ImageView)event.getTarget()).getId();
+						int x, y;
+						x = 300;
+						y = 300;
+						selectShape = ((ImageView) event.getTarget()).getId();
 						shapeFactory.produce(selectShape, x, y);
 						selectShape = null;
 					}
@@ -261,6 +265,7 @@ public class RootLayoutController implements Initializable {
 					if (event.getTarget().getClass() == ImageView.class) {
 						ImageView nowImage = (ImageView) event.getTarget();
 						selectShape = nowImage.getId();
+						System.out.println(selectShape);
 					}
 				}
 			}
