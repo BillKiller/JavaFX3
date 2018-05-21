@@ -131,11 +131,11 @@ public class MyLine extends Line {
 	public void setBooleanProperty(BooleanProperty booleanProperty) {
 		this.booleanProperty = booleanProperty;
 	}
-	
+
 	public ArrayList<Circle> getMiddlePoints() {
 		return middlePoints;
 	}
-	
+
 	public void setShape() {
 		double dx = endX - startX;
 		double dy = endY - startY;
@@ -164,6 +164,10 @@ public class MyLine extends Line {
 		booleanProperty.setValue(true);
 		middlePoints.clear();
 		middlePoints.add(new Circle((startX+endX)/2,(startY+endY)/2,StandardNum.DRAW_POINTS_RADIUS));
+		if(drawController!=null&&drawController.getPropertyController()!=null){
+			drawController.getPropertyController().setWorkShape(this);
+			drawController.getPropertyController().update();
+		}
 	}
 
 	public void getPane(AnchorPane drawingArea, DrawController drawController) {
@@ -243,9 +247,9 @@ public class MyLine extends Line {
 				headLinkShape.delConnectionInfo(this);
 			drawController.connect(e.getX(), e.getY(), "start", this);
 		});
-		
-		
-		
+
+
+
 		line.setOnMouseEntered(e -> {
 			if (!isOnTheLine) {
 				lastX = e.getX();

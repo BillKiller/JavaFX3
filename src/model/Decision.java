@@ -11,6 +11,9 @@ public class Decision extends MyPolygon {
 		setShape();
 	}
 
+	/**
+	 * 更新坐标
+	 */
 	@Override
 	public void setShape() {
 		double upLeftX = this.x;

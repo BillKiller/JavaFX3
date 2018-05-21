@@ -13,10 +13,25 @@ import javafx.scene.shape.Polygon;
 public class BrokenLine extends MyLine{
 	private Line xLine;
 	private Line yLine;
+	/**
+	 *
+	 * @param startX
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 * @param factoryID
+	 */
 	public BrokenLine(double startX, double startY, double endX, double endY,int factoryID) {
 		this(startX, startY, endX, endY);
 		this.factoryID = factoryID;
 	}
+	/**
+	 *
+	 * @param startX
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 */
 	public BrokenLine(double startX, double startY, double endX, double endY) {
 		middlePoints=new ArrayList<>();
 		this.startX = startX;
@@ -39,12 +54,18 @@ public class BrokenLine extends MyLine{
 		super.startListening();
 		addLineListening();
 	}
+	/**
+	 * 可以删除这个图形
+	 */
 	public void delete(){
 		drawingArea.getChildren().remove(xLine);
 		drawingArea.getChildren().remove(yLine);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
 	}
+	/**
+	 * 每次更新了数据之后，都要更新图形，这样才能使得图形发生变化。
+	 */
 	@Override
 	public void setShape() {
 
@@ -80,7 +101,14 @@ public class BrokenLine extends MyLine{
 		middlePoints.add(new Circle(endX,(startY+endY)/2,StandardNum.DRAW_POINTS_RADIUS));
 		isSelected = true;
 		booleanProperty.setValue(true);
+		if(drawController!=null&&drawController.getPropertyController()!=null){
+			drawController.getPropertyController().setWorkShape(this);
+			drawController.getPropertyController().update();
+		}
 	}
+	/**
+	 * 加入图形
+	 */
 	@Override
 	public void getPane(AnchorPane drawingArea, DrawController drawController) {
 		drawingArea.getChildren().add(xLine);
@@ -90,6 +118,11 @@ public class BrokenLine extends MyLine{
 		this.drawingArea = drawingArea;
 		this.drawController = drawController;
 	}
+	/**
+	 *
+	 *能够将图形设置在最顶层
+	 * @see model.MyLine#setToTop()
+	 */
 	@Override
 	public void setToTop() {
 		drawingArea.getChildren().remove(xLine);

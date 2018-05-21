@@ -2,12 +2,16 @@ package model;
 
 import controller.DrawController;
 import javafx.geometry.Pos;
-
+/**
+ * 记录连接点信息
+ *
+ */
 public class ConnectionInfo {
 	private MyLine line;
 	private int location;
 	private String ConnectionPart;
 	private DrawController drawController;
+
 	public DrawController getDrawController() {
 		return drawController;
 	}

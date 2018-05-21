@@ -48,7 +48,7 @@ public class MyCircle extends MyShape {
 	}
 	public void setShape(){
 			circle.setRadiusX(width);
-			circle.setRadiusY(height);
+			circle.setRadiusY(width);
 			circle.setCenterX(this.x);
 			circle.setCenterY(this.y);
 	}

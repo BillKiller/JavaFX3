@@ -5,9 +5,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
-
+/**
+ * ç¼–è¾‘æ¡†ç±»
+ */
 public class Editer {
-	//Õâ¸öÀàÊÇĞŞ¸Ä¿òÀà£¬ÓĞ8¸öµã£¬µ±Êó±ê°¡·ÅÔÚÉÏÃæµÄÊ±ºò£¬»áÏàÓ¦¸Ä±äÊó±êĞÎ×´
 	private Point []circles;
 	private double x;
 	private double y;
@@ -56,8 +57,11 @@ public class Editer {
 	//init start
 
 	private  void initCicrle(double x,double y){
-		//ÕâĞ©Ô²ÊÇ¸ù¾İÖĞĞÄ×ø±êÊµÏÖµÄ
+		/*
+		 * åˆå§‹åŒ–åœ†
+		 */
 		circles =new Point[9];
+
 		for(int i =0;i<9;i++){
 			circles[i] = new Point(x,y,5);
 			circles[i].setFill(Color.BLUE);
@@ -108,6 +112,10 @@ public class Editer {
 		}
 
 	}
+	/**
+	 * è®¾ç½®åœ†æ¶ˆå¤±
+	 *
+	 */
 	public void  disapperCircle(){
 		for(int i =0;i<3;i++){
 			for(int j =0;j<3;j++){
@@ -115,6 +123,9 @@ public class Editer {
 			}
 		}
 	}
+	/**
+	 * è®¾ç½®çº¿æ¡æ¶ˆå¤±
+	 */
 	public void disapperLine(){
 		for(int i =0;i<8;i++){
 			lines[i].setStartX(0);
@@ -123,6 +134,9 @@ public class Editer {
 			lines[i].setEndY(0);
 		}
 	}
+	/**
+	 * è®¾ç½®æ¶ˆå¤±
+	 */
 	public void disapper(){
 		disapperCircle();
 		disapperLine();
