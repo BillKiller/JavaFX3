@@ -240,10 +240,6 @@ public abstract class MyShape {
 		getPane(drawingArea, drawController);
 	}
 
-	/*
-	 * ������϶���ʱ�����4����
-	 *
-	 */
 	public void createDrawPoints() {
 		double leftMidX = this.x - width;
 		double leftMidY = this.y;
@@ -267,7 +263,6 @@ public abstract class MyShape {
 		resizeCursorListener();
 		resizeListener();
 		moveHandListener();
-		// ��MyShape�����Է����ı��ʱ����Ӧ
 		changeListener();
 	}
 

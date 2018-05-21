@@ -12,7 +12,7 @@ public class Decision extends MyPolygon {
 	}
 
 	/**
-	 * 更新坐标
+	 * 判断语句，更新坐标
 	 */
 	@Override
 	public void setShape() {

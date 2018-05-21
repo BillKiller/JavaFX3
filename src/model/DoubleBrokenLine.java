@@ -11,6 +11,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 
+/*
+ * 双折线类
+ * 根据五个坐标值，构成双折线
+ */
 public class DoubleBrokenLine extends MyLine {
 	protected Line xLine1;
 	protected Line xLine2;
@@ -19,12 +23,15 @@ public class DoubleBrokenLine extends MyLine {
 	protected double aY;
 	protected double bX;
 	protected double bY;
-
+	/*
+	 * @param 
+	 */
+	//工厂中调用的构造方法
 	public DoubleBrokenLine(double startX, double startY, double endX, double endY, double aX, int factoryID) {
 		this(startX, startY, endX, endY, aX);
 		this.factoryID = factoryID;
 	}
-
+	//构造方法
 	public DoubleBrokenLine(double startX, double startY, double endX, double endY, double aX) {
 		middlePoints=new ArrayList<>();
 		this.startX = startX;
@@ -64,7 +71,7 @@ public class DoubleBrokenLine extends MyLine {
 
 	@Override
 	public void setShape() {
-		System.out.println(startX+" "+startY+" "+aX+" "+aY+" "+bX+" "+bY+" "+endX+" "+endY);
+//		System.out.println(startX+" "+startY+" "+aX+" "+aY+" "+bX+" "+bY+" "+endX+" "+endY);
 		double dx = endX - bX;
 		double dy = endY - bY;
 		double k = 1 / Math.sqrt(dx * dx + dy * dy);
@@ -97,6 +104,7 @@ public class DoubleBrokenLine extends MyLine {
 		yLine.setStartY(aY);
 		yLine.setEndX(bX);
 		yLine.setEndY(bY);
+		//计算中点，以支持线到线的连接
 		middlePoints.clear();
 		middlePoints.add(new Circle((startX+aX)/2,startY,StandardNum.DRAW_POINTS_RADIUS));
 		middlePoints.add(new Circle((aX+endX)/2,endY,StandardNum.DRAW_POINTS_RADIUS));

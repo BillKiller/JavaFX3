@@ -55,7 +55,7 @@
                 </ImageView>
                         <ImageView fx:id="DoubleBrokenLine" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../image/BrokenLine.png" />
+                              <Image url="@../../image/doubleBrokenLine.png" />
                            </image>
                         </ImageView>
               </children>

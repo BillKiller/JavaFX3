@@ -7,6 +7,9 @@ import javafx.geometry.Pos;
  *
  */
 public class ConnectionInfo {
+	/*
+	 * 线，图形连接点位置，图形管理者
+	 */
 	private MyLine line;
 	private int location;
 	private String ConnectionPart;
