@@ -103,6 +103,11 @@ public class DoubleBrokenLine extends MyLine {
 		middlePoints.add(new Circle(aX,(startY+endY)/2,StandardNum.DRAW_POINTS_RADIUS));
 		isSelected = true;
 		booleanProperty.setValue(true);
+		if(drawController!=null&&drawController.getPropertyController()!=null){
+			drawController.getPropertyController().setWorkShape(this);
+			drawController.getPropertyController().update();
+		}
+		//SuiSui i love u
 	}
 	@Override
 	public void getPane(AnchorPane drawingArea, DrawController drawController) {

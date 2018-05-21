@@ -11,6 +11,7 @@ public class Compiler {
 	private DrawController drawController;
 	private String code;
 	private TextArea textArea;
+	
 	public TextArea getTextArea() {
 		return textArea;
 	}

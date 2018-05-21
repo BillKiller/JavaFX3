@@ -24,39 +24,39 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
 public abstract class MyShape {
-	// ͼ�εĹ������
+	// id号
 	protected int factoryID;
-	// ���������������
+	// 所在的图形和所在的管理
 	protected AnchorPane drawingArea;
 	protected DrawController drawController;
-	// ��������
+	// 中心坐标
 	protected double x;
 	protected double y;
-	// ���Ͻ�����
+	// 左上角坐标
 	protected double leftX;
 	protected double leftY;
-	// ���½�����
+	//基本属性 右边点坐标
 	protected double rightX;
 	protected double rightY;
-	// �볤��
+	// 基本属性 长和宽
 	protected double width;
 	protected double height;
 
-	// ����һ���ɼ����ı���������ֵ�ı仯�������Ǽ�¼MyShape��������û�з����ı䣬Ϊ�Ժ�Ĳ���ջ�ṩ����
+	//改变监听变量，可以监听图形的改变
 	protected BooleanProperty booleanProperty;
-	// ״̬
+	//状态成员
 	private boolean isDrag = false;
 	private boolean isZoom = false;
 	private boolean isSelected = false;
-	// ����
+	// 图形成员
 	protected Shape shape;
 	private Editer editer;
 	private Status status;
 	protected Text text;
 	protected DrawPoints drawPoints;
-	// ��¼������
+	//连接点信息列表
 	ArrayList<ConnectionInfo> connectionInfos=new ArrayList<>();
-	// ����RESIZEʹ��ʹ�õĳ���
+	//最小的变化值
 	private final static int minReSize = 5;
 	private final static int[][] RESIZ_DRECTION = { { 0, -1, -1 }, { 1, -1, 0 }, { 2, -1, 1 }, { 3, 0, -1 },
 			{ 4, 0, 0 }, { 5, 0, 1 }, { 6, 1, -1 }, { 7, 1, 0 }, { 8, 1, 1 } };
@@ -184,11 +184,12 @@ public abstract class MyShape {
 	public void setText(Text text) {
 		this.text = text;
 	}
-	//���������Ϣ
+	//添加连接信息
 	public void addConnectionInfo(ConnectionInfo info) {
 		connectionInfos.add(info);
 	}
-	//ɾ��������Ϣ
+	//删除连接信息
+
 	public void delConnectionInfo(MyLine line) {
 		ConnectionInfo delInfo=null;
 		for(ConnectionInfo info:connectionInfos) {
@@ -211,7 +212,7 @@ public abstract class MyShape {
 		rightY = y + height;
 	}
 
-	// ɾ��������Ϊ�ṩdetele������
+	// 删除图形
 	public void delet() {
 		drawingArea.getChildren().remove(shape);
 		editer.delEditer(drawingArea);
@@ -273,7 +274,7 @@ public abstract class MyShape {
 	public void changeListener() {
 		booleanProperty.addListener(e -> {
 			if (booleanProperty.getValue() == false) {
-				// ������巢���ı�˵����������ǵ�ǰ������Shape����ʱ�Ҳ����������ʾ���Shape������
+				//当发生改变的时候响应
 				drawController.getPropertyController().setWorkShape(this);
 				drawController.getPropertyController().update();
 				drawController.saveChange();
@@ -289,18 +290,7 @@ public abstract class MyShape {
 			isSelected = false;
 		});
 	}
-//
-//	public void setOnMouseEnter() {
-//		shape.setOnDragDone(e -> {
-//			System.out.println("go");
-//			if (drawController.isDraggingLine()) {
-//				System.out.println("gogogo");
-//				drawController.setDragInShape(this);
-//			}
-//			e.setDropCompleted(true);
-//			e.consume();
-//		});
-//	}
+
 	public void setOnRealse() {
 		shape.setOnMouseReleased(e -> {
 			this.setToTop();
@@ -370,7 +360,7 @@ public abstract class MyShape {
 			circles[i].setDirectionX(RESIZ_DRECTION[i][1]);
 			circles[i].setDirectionY(RESIZ_DRECTION[i][2]);
 
-			// ���������״
+			//设置鼠标形状
 			circles[i].setCursor(hand[i]);
 		}
 	}
@@ -407,21 +397,23 @@ public abstract class MyShape {
 					}
 				}
 			}
-			// ���ɱ任Ч��
+			// 更新信息
 			updateLocation(this.x, this.y);
 			getEditer().setHeight(height + 10);
 			getEditer().setWidth(width + 10);
-			// ���α任Ч��
+			//设置属性
 			this.setX(x);
 			this.setY(y);
 			this.setWidth(width);
 			this.setHeight(height);
 			updateLocation(this.x, this.y);
-			// ���ɱ༭��ı任Ч��
+			//通知改变
 			booleanProperty.setValue(true);
 		}
 	}
-
+	/**
+	 * 放缩图形
+	 */
 	private void resizeListener() {
 		Circle[] circles = editer.getCircles();
 		for (int i = 0; i < circles.length; i++) {
@@ -454,7 +446,9 @@ public abstract class MyShape {
 		}
 	}
 
-	// ÿ���ƶ��ᵼ����������x,y�ı䣬Ϊ�˷�ֹtext��ͼ�η���ƫ��������Ҫ����text��λ��
+	/**
+	 * 当文字发生改变的时候，更新图形中的文字
+	 */
 	public void update() {
 		int len = text.getText().length() * 5;
 		text.setX(x - len);
@@ -475,6 +469,10 @@ public abstract class MyShape {
 				+ df.format(this.height) + ")" + "[ " + text.getText() + " ]" +"{ "+" }"+ "  ;\n";
 		return tostring;
 	}
+	/**
+	 * 获取图形的css
+	 * @return
+	 */
 	public String getCSS(){
 		String css="";
 		for(int i =0;i<connectionInfos.size();i++){
@@ -482,6 +480,10 @@ public abstract class MyShape {
 		}
 		return css;
 	}
+	/**
+	 * 通过字符串设置图形的css
+	 * @param css
+	 */
 	public void setCSS(String css){
 
 		if(css == null)return ;
