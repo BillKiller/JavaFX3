@@ -126,7 +126,7 @@ public class RootLayoutController implements Initializable {
 	private FileMenuController menuController;
 
 	public void menuNew() {
-		menuController.newDrawingArea(drawingArea);
+		menuController.newDrawingArea(compiler);
 	}
 
 	public void menuSave() {

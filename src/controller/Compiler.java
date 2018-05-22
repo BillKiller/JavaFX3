@@ -86,7 +86,7 @@ public class Compiler {
 
 	public void compireProduce(String code){
 		this.code = code.trim();
-
+		textArea.setText(this.code);
 		shapeFactory.setCountShapeID(0);
 		drawController.reset();
 		String items[]=getItem();

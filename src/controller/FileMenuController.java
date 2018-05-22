@@ -23,10 +23,14 @@ import javafx.stage.Stage;
 
 public class FileMenuController {
 
-	public void newDrawingArea(AnchorPane drawingArea) {
-		while (drawingArea.getChildren().size() != 0) {
-			drawingArea.getChildren().remove(0);
-		}
+//	public void newDrawingArea(AnchorPane drawingArea) {
+//		while (drawingArea.getChildren().size() != 0) {
+//			drawingArea.getChildren().remove(0);
+//		}
+//		
+//	}
+	public void newDrawingArea(Compiler compiler) {
+		compiler.compireProduce("");
 	}
 
 	public void saveDrawingArea(DrawController drawController) {

@@ -28,16 +28,10 @@ public class MainApp extends Application {
      */
     public void initRootLayout() {
         try {
-        	//将CSS文件加载到fxml文件中
-//        	Application.setUserAgentStylesheet(getClass().getResource("/css/MyCSS.css")
-//                    .toExternalForm());
         	//将RootLayout.fxml加载到rootLayout成员变量中
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/controller/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-            //debug
-//            MyLine myLine = new MyLine(500, 500,600,700);
-//            myLine.getPane(rootLayout);
             //用rootLayout初始化一个scene，放到stage上展示
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
