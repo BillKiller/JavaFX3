@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 
 public class BrokenLine extends MyLine{
 	private Line xLine;
@@ -49,6 +50,7 @@ public class BrokenLine extends MyLine{
 		circle.setCenterY(startY);
 		circle.setRadius(5);
 		triangle = new Polygon();
+		text = new Text();
 		setShape();
 		this.isSelected = false;
 		super.startListening();
@@ -62,6 +64,7 @@ public class BrokenLine extends MyLine{
 		drawingArea.getChildren().remove(yLine);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
+		drawingArea.getChildren().remove(text);
 	}
 	/**
 	 * 每次更新了数据之后，都要更新图形，这样才能使得图形发生变化。
@@ -97,6 +100,8 @@ public class BrokenLine extends MyLine{
 		yLine.setEndX(this.endX);
 		yLine.setEndY(this.endY);
 		middlePoints.clear();
+		text.setX((startX+endX)/2);
+		text.setY(startY);
 		middlePoints.add(new Circle((startX+endX)/2,startY,StandardNum.DRAW_POINTS_RADIUS));
 		middlePoints.add(new Circle(endX,(startY+endY)/2,StandardNum.DRAW_POINTS_RADIUS));
 		isSelected = true;
@@ -115,6 +120,7 @@ public class BrokenLine extends MyLine{
 		drawingArea.getChildren().add(yLine);
 		drawingArea.getChildren().add(circle);
 		drawingArea.getChildren().add(triangle);
+		drawingArea.getChildren().add(text);
 		this.drawingArea = drawingArea;
 		this.drawController = drawController;
 	}
@@ -129,6 +135,7 @@ public class BrokenLine extends MyLine{
 		drawingArea.getChildren().remove(yLine);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
+		drawingArea.getChildren().remove(text);
 		getPane(drawingArea, drawController);
 	}
 	public void addLineListening() {

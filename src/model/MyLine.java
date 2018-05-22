@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 
 public class MyLine extends Line {
 	protected int factoryID;
@@ -26,6 +27,7 @@ public class MyLine extends Line {
 	protected double lastY;
 	// Shape
 	protected Polygon triangle;
+	protected Text text;
 	protected Line line;
 	protected Circle circle;
 	// 连接信息
@@ -59,6 +61,7 @@ public class MyLine extends Line {
 		circle.setRadius(5);
 		line.setStrokeWidth(3);
 		triangle = new Polygon();
+		text = new Text();
 		setShape();
 		this.isSelected = false;
 		startListening();
@@ -162,8 +165,11 @@ public class MyLine extends Line {
 		line.setEndY(this.endY);
 		isSelected = true;
 		booleanProperty.setValue(true);
+
 		middlePoints.clear();
 		middlePoints.add(new Circle((startX+endX)/2,(startY+endY)/2,StandardNum.DRAW_POINTS_RADIUS));
+		text.setX((startX+endX)/2);
+		text.setY((startY+endY)/2);
 		if(drawController!=null&&drawController.getPropertyController()!=null){
 			drawController.getPropertyController().setWorkShape(this);
 			drawController.getPropertyController().update();
@@ -174,6 +180,7 @@ public class MyLine extends Line {
 		drawingArea.getChildren().add(line);
 		drawingArea.getChildren().add(circle);
 		drawingArea.getChildren().add(triangle);
+		drawingArea.getChildren().add(text);
 		this.drawingArea = drawingArea;
 		this.drawController = drawController;
 	}
@@ -207,6 +214,7 @@ public class MyLine extends Line {
 		drawingArea.getChildren().remove(line);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
+		drawingArea.getChildren().remove(text);
 	}
 
 	public void changeListener() {
@@ -217,6 +225,14 @@ public class MyLine extends Line {
 				drawController.saveChange();
 			}
 		});
+	}
+
+	public Text getText() {
+		return text;
+	}
+
+	public void setText(Text text) {
+		this.text = text;
 	}
 
 	protected void startListening() {
@@ -287,14 +303,14 @@ public class MyLine extends Line {
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("#.00");
 		String tostring = getClass().getSimpleName() + "< " + factoryID + " >" + "(" + df.format(this.startX) + ","
-				+ df.format(startY) + "," + df.format(endX) + "," + df.format(endY) + ")" + "[ " + " " + " ]" + " ;\n";
+				+ df.format(startY) + "," + df.format(endX) + "," + df.format(endY) + ")" + "[ " +  text.getText() + " ]" + " ;\n";
 		return tostring;
 	}
 
 	public String toString(int factoryID) {
 		DecimalFormat df = new DecimalFormat("#.00");
 		String tostring = getClass().getSimpleName() + "< " + factoryID + " >" + "(" + df.format(this.startX) + ","
-				+ df.format(startY) + "," + df.format(endX) + "," + df.format(endY) + ")" + "[ " + " " + " ]" + " ;\n";
+				+ df.format(startY) + "," + df.format(endX) + "," + df.format(endY) + ")" + "[ " + text.getText() + " ]" + " ;\n";
 		return tostring;
 	}
 

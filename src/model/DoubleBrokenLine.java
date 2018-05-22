@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 
 /*
  * 双折线类
@@ -24,7 +25,7 @@ public class DoubleBrokenLine extends MyLine {
 	protected double bX;
 	protected double bY;
 	/*
-	 * @param 
+	 * @param
 	 */
 	//工厂中调用的构造方法
 	public DoubleBrokenLine(double startX, double startY, double endX, double endY, double aX, int factoryID) {
@@ -55,6 +56,7 @@ public class DoubleBrokenLine extends MyLine {
 		circle.setCenterY(startY);
 		circle.setRadius(5);
 		triangle = new Polygon();
+		text = new Text();
 		setShape();
 		this.isSelected = false;
 		super.startListening();
@@ -67,6 +69,7 @@ public class DoubleBrokenLine extends MyLine {
 		drawingArea.getChildren().remove(yLine);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
+		drawingArea.getChildren().remove(text);
 	}
 
 	@Override
@@ -110,6 +113,8 @@ public class DoubleBrokenLine extends MyLine {
 		middlePoints.add(new Circle((aX+endX)/2,endY,StandardNum.DRAW_POINTS_RADIUS));
 		middlePoints.add(new Circle(aX,(startY+endY)/2,StandardNum.DRAW_POINTS_RADIUS));
 		isSelected = true;
+		text.setX(aX);
+		text.setY((startY+endY)/2);
 		booleanProperty.setValue(true);
 		if(drawController!=null&&drawController.getPropertyController()!=null){
 			drawController.getPropertyController().setWorkShape(this);
@@ -124,6 +129,7 @@ public class DoubleBrokenLine extends MyLine {
 		drawingArea.getChildren().add(yLine);
 		drawingArea.getChildren().add(circle);
 		drawingArea.getChildren().add(triangle);
+		drawingArea.getChildren().add(text);
 		this.drawingArea = drawingArea;
 		this.drawController = drawController;
 	}
@@ -135,6 +141,7 @@ public class DoubleBrokenLine extends MyLine {
 		drawingArea.getChildren().remove(yLine);
 		drawingArea.getChildren().remove(circle);
 		drawingArea.getChildren().remove(triangle);
+		drawingArea.getChildren().remove(text);
 		getPane(drawingArea, drawController);
 	}
 	@Override
@@ -262,7 +269,7 @@ public class DoubleBrokenLine extends MyLine {
 		DecimalFormat df = new DecimalFormat("#.00");
 
 		String tostring = getClass().getSimpleName() + "< " + factoryID + " >" + "(" + df.format(this.startX) + ","
-				+ df.format(startY) +df.format(aX)+","+df.format(aY)+","+df.format(bX)+","+df.format(bY)+ "," + df.format(endX) + "," + df.format(endY) + ")" + "[ " + " " + " ]" + " ;\n";
+				+ df.format(startY) +df.format(aX)+","+df.format(aY)+","+df.format(bX)+","+df.format(bY)+ "," + df.format(endX) + "," + df.format(endY) + ")" + "[ " +  text.getText() + " ]" + " ;\n";
 		System.out.println(tostring);
 		return tostring;
 	}
@@ -271,7 +278,7 @@ public class DoubleBrokenLine extends MyLine {
 		DecimalFormat df = new DecimalFormat("#.00");
 
 		String tostring = getClass().getSimpleName() + "< " + factoryID + " >" + "(" + df.format(this.startX) + ","
-				+ df.format(startY) + "," + df.format(endX) + "," + df.format(endY) +","+df.format(aX)+ ")" + "[ " + " " + " ]" + " ;\n";
+				+ df.format(startY) + "," + df.format(endX) + "," + df.format(endY) +","+df.format(aX)+ ")" + "[ " + text.getText() + " ]" + " ;\n";
 		System.out.println(tostring);
 		return tostring;
 	}

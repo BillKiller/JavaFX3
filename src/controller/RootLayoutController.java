@@ -243,8 +243,8 @@ public class RootLayoutController implements Initializable {
 					selectShape = null;
 				}
 				if (event.getClickCount() == 1 && selectShape == null) {
-					drawController.getPropertyController().setWorkShape(drawController.workingShape());
-					drawController.getPropertyController().update();
+					//drawController.getPropertyController().setWorkShape(drawController.workingShape());
+					//drawController.getPropertyController().update();
 				}
 			}
 		});

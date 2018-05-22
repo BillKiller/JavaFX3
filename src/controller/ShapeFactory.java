@@ -22,9 +22,6 @@ public class ShapeFactory {
 	private AnchorPane drawingArea;
 	private DrawController drawController;
 
-	/*
-	 * �����Ƕ���ڵ����ڵ�
-	 */
 	public ShapeFactory(AnchorPane drawingArea, DrawController drawController) {
 		this.drawingArea = drawingArea;
 		this.drawController = drawController;
@@ -83,14 +80,15 @@ public class ShapeFactory {
 		this.drawController = drawController;
 	}
 
-	// -----------������Ҫ��������
 	public void produce(String kind, double x, double y, double width, double height, String text, int id) {
 		if (kind == null)
 			return;
 		kind = kind.replaceAll("Image", "");
 		if (kind.indexOf("Line") != -1) {
 			MyLine line = produceMyLine(kind, x, y, width, height);
+			line.getText().setText(text);
 			line.setFactoryID(id);
+			line.setShape();
 		} else {
 			MyShape shape = productMyShape(kind, x, y, width, height, text);
 			shape.getText().setText(text);

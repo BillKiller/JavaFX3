@@ -124,9 +124,7 @@ public class PropertyController {
 					shape.setSY(Double.parseDouble(textFieldY.getText()));
 					shape.setEX(Double.parseDouble(textFieldW.getText()));
 					shape.setEY(Double.parseDouble(textFieldH.getText()));
-					// shape.getText().setText(textArea.getText());
-					// shape.updateLocation(shape.getX(), shape.getY());
-					// shape.update();
+					shape.getText().setText(textArea.getText());
 					shape.setShape();
 					drawController.saveChange();
 				}
